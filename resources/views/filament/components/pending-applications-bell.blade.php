@@ -1,0 +1,1 @@
+@livewire('pending-applications-bell')

@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('shop_plans', function (Blueprint $table) {
+            $table->id();
+
+            $table->foreignId('shop_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('plan_id')->constrained()->cascadeOnDelete();
+
+            $table->enum('billing_cycle', ['monthly', 'yearly']);
+            $table->integer('duration_months');
+
+            $table->date('starts_at')->nullable();
+            $table->date('ends_at')->nullable();
+            $table->date('grace_ends_at')->nullable();
+
+            $table->enum('status', ['pending', 'active', 'grace', 'expired'])->default('pending');
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('shop_plans');
+    }
+};

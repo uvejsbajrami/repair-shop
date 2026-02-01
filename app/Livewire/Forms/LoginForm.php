@@ -38,6 +38,15 @@ class LoginForm extends Form
             ]);
         }
 
+        // Check if employee hasn't accepted invitation yet
+        $user = Auth::user();
+        if ($user->role === 'employee' && $user->invitation_token !== null) {
+            Auth::logout();
+            throw ValidationException::withMessages([
+                'form.email' => 'Please accept your invitation first by clicking the link in your email.',
+            ]);
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
 
