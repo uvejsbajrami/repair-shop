@@ -6,9 +6,9 @@ function currency_symbol()
     if (!$settings) return '';
 
     return match ($settings->currency_code) {
-        'USD' => '$',
         'EUR' => '€',
         'MKD' => 'ден',
+        // 'USD' => '$', // Uncomment when needed
         default => '',
     };
 }

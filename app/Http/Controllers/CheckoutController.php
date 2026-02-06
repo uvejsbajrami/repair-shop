@@ -78,6 +78,8 @@ class CheckoutController extends Controller
     'shop_name' => 'required|string|max:255',
     'shop_phone' => 'nullable|string|max:20',
     'shop_address' => 'nullable|string|max:500',
+    'language_code' => 'required|string|in:en,sq',
+    'currency_code' => 'required|string|in:EUR,MKD',
    ];
 
    // Add user fields validation for guests
@@ -105,6 +107,8 @@ class CheckoutController extends Controller
      'shop_name' => $request->shop_name,
      'shop_phone' => $request->shop_phone,
      'shop_address' => $request->shop_address,
+     'language_code' => $request->language_code,
+     'currency_code' => $request->currency_code,
      'name' => $request->name,
      'email' => $request->email,
      'password' => $request->password,
@@ -190,10 +194,12 @@ class CheckoutController extends Controller
       ));
      }
 
+     $currencySymbols = ['EUR' => '€', 'MKD' => 'ден'];
      $shopSettings = ShopSetting::create([
       'shop_id' => $shop->id,
-      'currency_code' => 'EUR',
-      'currency_symbol' => '€',
+      'currency_code' => $checkoutData['currency_code'],
+      'currency_symbol' => $currencySymbols[$checkoutData['currency_code']] ?? '€',
+      'language_code' => $checkoutData['language_code'],
      ]);
 
      // Activate subscription

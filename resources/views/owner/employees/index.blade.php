@@ -1,14 +1,14 @@
 @extends('layouts.owner')
 
-@section('title', 'Employees')
+@section('title', __('employee.employees'))
 
 @section('content')
  <div class="max-w-6xl mx-auto">
   <!-- Header -->
   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
    <div>
-    <h1 class="text-2xl font-bold text-gray-800">Employees</h1>
-    <p class="text-gray-600 mt-1">Manage your shop's employees</p>
+    <h1 class="text-2xl font-bold text-gray-800">{{ __('employee.employees') }}</h1>
+    <p class="text-gray-600 mt-1">{{ __('employee.manage_your_shop_employees') }}</p>
    </div>
 
    @if($currentCount < $maxEmployees)
@@ -17,7 +17,7 @@
      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
      </svg>
-     Add Employee
+     {{ __('employee.add_employee') }}
     </a>
    @endif
   </div>
@@ -32,12 +32,12 @@
       </path>
      </svg>
      <span class="text-blue-800 font-medium">
-      {{ $currentCount }} / {{ $maxEmployees == -1 ? 'Unlimited' : $maxEmployees }} employees
+      {{ $currentCount }} / {{ $maxEmployees == -1 ? __('employee.unlimited') : $maxEmployees }} {{ __('employee.employees') }}
      </span>
     </div>
     @if($maxEmployees != -1 && $currentCount >= $maxEmployees)
      <a href="/#plansSection" class="text-sm text-blue-600 hover:text-blue-800 font-medium">
-      Upgrade plan for more
+      {{ __('employee.upgrade_plan_for_more') }}
      </a>
     @endif
    </div>
@@ -50,19 +50,19 @@
      <thead class="bg-gray-50">
       <tr>
        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        Employee
+         {{ __('employee.employee') }}
        </th>
        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        Status
+        {{ __('employee.status') }}
        </th>
        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        Invitation
+        {{ __('employee.invitation') }}
        </th>
        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        Joined
+        {{ __('employee.joined') }}
        </th>
        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        Money Income
+        {{ __('employee.money_income') }}
        </th>
        <th scope="col" class="relative px-6 py-3">
         <span class="sr-only">Actions</span>
@@ -98,14 +98,14 @@
            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 8 8">
             <circle cx="4" cy="4" r="3" />
            </svg>
-           Active
+           {{ __('employee.accepted') }}
           </span>
          @else
           <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 8 8">
             <circle cx="4" cy="4" r="3" />
            </svg>
-           Inactive
+           {{ __('employee.inactive') }}
           </span>
          @endif
         </td>
@@ -115,7 +115,7 @@
            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
            </svg>
-           Accepted
+           {{ __('employee.accepted') }}
           </span>
          @else
           <span class="text-yellow-600 flex items-center">
@@ -123,7 +123,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
            </svg>
-           Pending
+           {{ __('employee.pending') }}
           </span>
          @endif
         </td>
@@ -147,7 +147,7 @@
           @if(!$employee->user->invitation_accepted_at)
            <form action="{{ route('owner.employees.resend', $employee) }}" method="POST" class="inline">
             @csrf
-            <button type="submit" class="text-blue-600 hover:text-blue-900 p-1" title="Resend Invitation">
+            <button type="submit" class="text-blue-600 hover:text-blue-900 p-1" title="{{ __('employee.resend_invitation') }}">
              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
@@ -162,7 +162,7 @@
            @method('PATCH')
            <button type="submit"
             class="{{ $employee->user->is_active ? 'text-yellow-600 hover:text-yellow-900' : 'text-green-600 hover:text-green-900' }} p-1"
-            title="{{ $employee->user->is_active ? 'Deactivate' : 'Activate' }}">
+            title="{{ $employee->user->is_active ? __('employee.deactivate') : __('employee.activate') }}">
             @if($employee->user->is_active)
              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -178,10 +178,10 @@
           </form>
 
           <form action="{{ route('owner.employees.destroy', $employee) }}" method="POST" class="inline"
-           onsubmit="return confirm('Are you sure you want to remove this employee? This action cannot be undone.')">
+           onsubmit="return confirm('{{ __('employee.confirm_remove_employee') }}')">
            @csrf
            @method('DELETE')
-           <button type="submit" class="text-red-600 hover:text-red-900 p-1" title="Remove Employee">
+           <button type="submit" class="text-red-600 hover:text-red-900 p-1" title="{{ __('employee.remove_employee') }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
@@ -206,20 +206,20 @@
       </path>
      </svg>
     </div>
-    <h3 class="text-lg font-semibold text-gray-800 mb-2">No employees yet</h3>
-    <p class="text-gray-600 mb-6">Add employees to help you manage repairs in your shop.</p>
+    <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ __('employee.no_employees_yet') }}</h3>
+    <p class="text-gray-600 mb-6">{{ __('employee.add_employees_to_help_you_manage_repairs_in_your_shop') }}</p>
     @if($maxEmployees > 0)
      <a href="{{ route('owner.employees.create') }}"
       class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition">
       <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
       </svg>
-      Add Your First Employee
+      {{ __('employee.add_your_first_employee') }}
      </a>
     @else
-     <p class="text-yellow-600 font-medium">Your current plan doesn't include employee management.</p>
+     <p class="text-yellow-600 font-medium">{{ __('employee.plan_no_employees') }}</p>
      <a href="/#plansSection" class="mt-4 inline-block text-blue-600 hover:text-blue-800 font-medium">
-      Upgrade your plan
+      {{ __('employee.upgrade_your_plan') }}
      </a>
     @endif
    </div>

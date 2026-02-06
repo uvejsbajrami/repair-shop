@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Renew Subscription - {{ $plan->name }} Plan</title>
+    <title>{{ __('checkout.renew_subscription') }} - {{ $plan->name }} Plan</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -36,7 +36,7 @@
                         <span class="ml-3 text-xl font-bold">MobileShop</span>
                     </a>
                     <a href="{{ route('owner.dashboard') }}" class="text-white hover:text-blue-200 transition">
-                        &larr; Back to Dashboard
+                        &larr; {{ __('checkout.back_to_dashboard') }}
                     </a>
                 </div>
             </div>
@@ -45,8 +45,8 @@
         <!-- Main Content -->
         <main class="container mx-auto px-6 py-12">
             <div class="max-w-2xl mx-auto">
-                <h1 class="text-3xl font-bold text-gray-800 mb-2 text-center">Renew Your Subscription</h1>
-                <p class="text-gray-600 text-center mb-8">Keep your shop running without interruption</p>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2 text-center">{{ __('checkout.renew_title') }}</h1>
+                <p class="text-gray-600 text-center mb-8">{{ __('checkout.renew_subtitle') }}</p>
 
                 <div class="bg-white rounded-xl shadow-lg p-6">
                     <!-- Current Plan Info -->
@@ -54,22 +54,22 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <h3 class="font-semibold text-gray-800">{{ $shop->name }}</h3>
-                                <p class="text-sm text-gray-600">Current Plan: <span class="font-medium text-blue-600">{{ ucfirst($plan->name) }}</span></p>
+                                <p class="text-sm text-gray-600">{{ __('checkout.current_plan') }}: <span class="font-medium text-blue-600">{{ ucfirst($plan->name) }}</span></p>
                             </div>
                             @if($shopPlan->status === 'grace')
-                            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium">Grace Period</span>
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium">{{ __('checkout.grace_period') }}</span>
                             @elseif($shopPlan->status === 'expired')
-                            <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium">Expired</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium">{{ __('checkout.expired') }}</span>
                             @else
-                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">Active</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">{{ __('checkout.active') }}</span>
                             @endif
                         </div>
                         @if($shopPlan->ends_at)
                         <p class="text-sm text-gray-500 mt-2">
                             @if($shopPlan->status === 'expired' || $shopPlan->status === 'grace')
-                            Ended on: {{ \Carbon\Carbon::parse($shopPlan->ends_at)->format('M d, Y') }}
+                            {{ __('checkout.ended_on') }}: {{ \Carbon\Carbon::parse($shopPlan->ends_at)->format('M d, Y') }}
                             @else
-                            Expires on: {{ \Carbon\Carbon::parse($shopPlan->ends_at)->format('M d, Y') }}
+                            {{ __('checkout.expires_on') }}: {{ \Carbon\Carbon::parse($shopPlan->ends_at)->format('M d, Y') }}
                             @endif
                         </p>
                         @endif
@@ -77,32 +77,32 @@
 
                     <!-- Plan Features -->
                     <div class="border-b pb-4 mb-4">
-                        <h4 class="font-medium text-gray-700 mb-2">Plan Features</h4>
+                        <h4 class="font-medium text-gray-700 mb-2">{{ __('checkout.plan_features') }}</h4>
                         <ul class="text-sm text-gray-500 space-y-1">
                             <li class="flex items-center">
                                 <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                                 </svg>
-                                {{ $plan->max_active_repairs }} active repairs
+                                {{ __('checkout.active_repairs', ['count' => $plan->max_active_repairs]) }}
                             </li>
                             <li class="flex items-center">
                                 <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                                 </svg>
-                                {{ $plan->max_employees == 0 ? 'No' : $plan->max_employees }} employees
+                                {{ $plan->max_employees == 0 ? __('checkout.no_employees') : __('checkout.employees', ['count' => $plan->max_employees]) }}
                             </li>
                             <li class="flex items-center">
                                 <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                                 </svg>
-                                {{ $plan->drag_and_drop ? 'Drag & Drop board' : 'Basic board' }}
+                                {{ $plan->drag_and_drop ? __('checkout.drag_drop_board') : __('checkout.basic_board') }}
                             </li>
                             @if($plan->exports)
                             <li class="flex items-center">
                                 <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                                 </svg>
-                                Export reports
+                                {{ __('checkout.export_reports') }}
                             </li>
                             @endif
                         </ul>
@@ -111,7 +111,7 @@
                     <!-- Duration Selector -->
                     <div class="mb-4">
                         <label for="duration" class="block text-sm font-medium text-gray-700 mb-2">
-                            Renewal Duration
+                            {{ __('checkout.renewal_duration') }}
                         </label>
                         <select id="duration" name="duration"
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
@@ -124,20 +124,20 @@
                     <!-- Price Breakdown -->
                     <div class="bg-gray-50 rounded-lg p-4 mb-6">
                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-gray-600">Monthly Price</span>
+                            <span class="text-gray-600">{{ __('checkout.monthly_price') }}</span>
                             <span id="monthly-price">&euro;{{ number_format($plan->price_monthly, 2) }}</span>
                         </div>
                         <div class="flex justify-between items-center mb-2" id="original-price-row" style="display: none;">
-                            <span class="text-gray-600">Original Price</span>
+                            <span class="text-gray-600">{{ __('checkout.original_price') }}</span>
                             <span id="original-price" class="line-through text-gray-400"></span>
                         </div>
                         <div class="flex justify-between items-center mb-2" id="savings-row" style="display: none;">
-                            <span class="text-green-600 font-medium">You Save</span>
+                            <span class="text-green-600 font-medium">{{ __('checkout.you_save') }}</span>
                             <span id="savings" class="text-green-600 font-medium"></span>
                         </div>
                         <div class="border-t pt-2 mt-2">
                             <div class="flex justify-between items-center">
-                                <span class="text-lg font-semibold text-gray-800">Total</span>
+                                <span class="text-lg font-semibold text-gray-800">{{ __('checkout.total') }}</span>
                                 <span id="total-price" class="text-2xl font-bold text-blue-600">
                                     &euro;{{ number_format($priceBreakdown['total_price'], 2) }}
                                 </span>
@@ -153,7 +153,7 @@
                     <div id="paypal-button-container"></div>
 
                     <p class="text-xs text-gray-500 text-center mt-4">
-                        Your subscription will be extended from your current end date (or from today if expired).
+                        {{ __('checkout.subscription_extended_note') }}
                     </p>
                 </div>
 
@@ -164,23 +164,23 @@
                             <div class="w-full border-t border-gray-300"></div>
                         </div>
                         <div class="relative flex justify-center text-sm">
-                            <span class="px-4 bg-gray-100 text-gray-500">or</span>
+                            <span class="px-4 bg-gray-100 text-gray-500">{{ __('checkout.or') }}</span>
                         </div>
                     </div>
 
                     <div class="mt-6 text-center">
-                        <p class="text-gray-600 mb-3">Prefer to pay via cash or bank transfer?</p>
+                        <p class="text-gray-600 mb-3">{{ __('checkout.prefer_cash_bank') }}</p>
                         <a href="{{ route('renew.apply') }}"
                             class="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition border border-gray-300">
                             <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
                             </svg>
-                            Apply for Renewal
+                            {{ __('checkout.apply_for_renewal') }}
                             <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                             </svg>
                         </a>
-                        <p class="text-xs text-gray-500 mt-2">Submit an application and we'll contact you with payment details</p>
+                        <p class="text-xs text-gray-500 mt-2">{{ __('checkout.apply_renewal_note') }}</p>
                     </div>
                 </div>
             </div>
@@ -192,6 +192,18 @@
 
     <script>
         const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+        // Translation strings for JavaScript
+        const translations = {
+            renewalSuccessful: @json(__('checkout.renewal_successful')),
+            subscriptionRenewed: @json(__('checkout.subscription_renewed')),
+            goToDashboard: @json(__('checkout.go_to_dashboard')),
+            paymentFailed: @json(__('checkout.payment_failed')),
+            errorOccurred: @json(__('checkout.error_occurred')),
+            errorProcessingPayment: @json(__('checkout.error_processing_payment')),
+            paypalError: @json(__('checkout.paypal_error')),
+            paymentCancelled: @json(__('checkout.payment_cancelled')),
+        };
 
         // Duration change handler
         document.getElementById('duration').addEventListener('change', async function() {
@@ -274,7 +286,7 @@
 
                     return order.id;
                 } catch (error) {
-                    showError('An error occurred. Please try again.');
+                    showError(translations.errorOccurred);
                     return Promise.reject(error);
                 }
             },
@@ -297,9 +309,9 @@
                     if (result.success) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Renewal Successful!',
-                            text: result.message || 'Your subscription has been renewed.',
-                            confirmButtonText: 'Go to Dashboard',
+                            title: translations.renewalSuccessful,
+                            text: result.message || translations.subscriptionRenewed,
+                            confirmButtonText: translations.goToDashboard,
                             confirmButtonColor: '#2563eb',
                             allowOutsideClick: false,
                             allowEscapeKey: false,
@@ -307,20 +319,20 @@
                             window.location.href = result.redirect;
                         });
                     } else {
-                        showError(result.error || 'Payment failed. Please try again.');
+                        showError(result.error || translations.paymentFailed);
                     }
                 } catch (error) {
-                    showError('An error occurred while processing your payment.');
+                    showError(translations.errorProcessingPayment);
                 }
             },
 
             onError: function(err) {
-                showError('An error occurred with PayPal. Please try again.');
+                showError(translations.paypalError);
                 console.error('PayPal error:', err);
             },
 
             onCancel: function() {
-                showError('Payment was cancelled. You can try again when ready.');
+                showError(translations.paymentCancelled);
             }
         }).render('#paypal-button-container');
     </script>

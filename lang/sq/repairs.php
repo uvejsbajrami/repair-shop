@@ -74,4 +74,31 @@ return [
     'shop_name' => 'Emri i Dyqanit',
     'phone_number' => 'Numri i Telefonit',
     'price' => 'Cmimi',
+
+    // Table view
+    'all_status' => 'Të Gjitha Statuset',
+    'search_repairs' => 'Kërko riparime...',
+    'tracking_code' => 'Kodi i Gjurmimit',
+    'customer' => 'Klienti',
+    'device' => 'Pajisja',
+    'issue' => 'Problemi',
+    'created' => 'Krijuar',
+    'actions' => 'Veprimet',
+    'archived' => 'Arkivuar',
+    'no_repairs_found' => 'Nuk u gjetën riparime',
+    'add_first_repair' => 'Shtoni riparimin tuaj të parë për të filluar',
+    'edit' => 'Ndrysho',
+    'delete' => 'Fshi',
+
+    // Limits
+    'max_active_repairs_reached' => "Keni arritur maksimumin prej :max riparimeve aktive për planin tuaj.",
+
+    // Repair Logs
+    'repairs_logs' => 'Regjistrat e Riparimeve',
+    'repairs_logs_description' => 'Këtu janë ndryshimet e fundit të statusit të riparimeve.',
+    'log_id' => '#',
+    'log_repair_id' => 'ID e Riparimit',
+    'log_previous_status' => 'Statusi i Mëparshëm',
+    'log_new_status' => 'Statusi i Ri',
+    'log_updated_at' => 'Përditësuar Më',
 ];

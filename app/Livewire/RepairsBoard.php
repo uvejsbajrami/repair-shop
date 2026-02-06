@@ -157,6 +157,21 @@ class RepairsBoard extends Component
 
   $shop = $this->getShop();
   $shopid = $shop->id;
+
+  // Check active repairs limit (only for new repairs)
+  if (!$this->editingRepairId) {
+   $plan = $shop->shopPlan?->plan;
+   $maxActiveRepairs = $plan?->max_active_repairs ?? 0;
+   $currentActiveCount = $shop->repairs()
+    ->whereIn('status', ['pending', 'working', 'finished'])
+    ->count();
+
+   if ($currentActiveCount >= $maxActiveRepairs) {
+    session()->flash('error', __('repairs.max_active_repairs_reached', ['max' => $maxActiveRepairs]));
+    return;
+   }
+  }
+
   $isEmployeeId = auth()->user()?->isEmployee() ? auth()->id() : null;
 
   $data = [

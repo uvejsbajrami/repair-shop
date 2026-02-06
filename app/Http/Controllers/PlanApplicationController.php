@@ -19,7 +19,7 @@ class PlanApplicationController extends Controller
  {
   $userApplications = PlanApplication::where('user_id', Auth::id())
    ->where('plan_id', $plan->id)
-   ->where('status', ['pending', 'approved'])
+   ->whereIn('status', ['pending', 'approved'])
    ->exists();
   if ($userApplications) {
    return redirect()->route('plan.apply.success');
@@ -46,6 +46,8 @@ class PlanApplicationController extends Controller
    'plan_id' => 'required|exists:plans,id',
    'duration_months' => 'required|in:1,3,6,12',
    'shop_name' => 'required|string|max:255',
+   'language_code' => 'required|string|in:en,sq',
+   'currency_code' => 'required|string|in:EUR,MKD',
    'name' => 'required|string|max:255',
    'email' => 'required|email|max:255',
    'phone' => 'nullable|string|max:20',
@@ -65,6 +67,8 @@ class PlanApplicationController extends Controller
    'applicant_phone' => $request->phone,
    'billing_cycle' => $durationMonths >= 12 ? 'yearly' : 'monthly',
    'duration_months' => $durationMonths,
+   'language_code' => $request->language_code,
+   'currency_code' => $request->currency_code,
    'message' => $request->message,
    'status' => 'pending',
    'payment_status' => 'awaiting_proof',

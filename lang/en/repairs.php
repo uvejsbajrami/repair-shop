@@ -74,4 +74,31 @@ return [
     'shop_name' => 'Shop Name',
     'phone_number' => 'Phone Number',
     'price' => 'Price',
+
+    // Table view
+    'all_status' => 'All Status',
+    'search_repairs' => 'Search repairs...',
+    'tracking_code' => 'Tracking Code',
+    'customer' => 'Customer',
+    'device' => 'Device',
+    'issue' => 'Issue',
+    'created' => 'Created',
+    'actions' => 'Actions',
+    'archived' => 'Archived',
+    'no_repairs_found' => 'No repairs found',
+    'add_first_repair' => 'Add your first repair to get started',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+
+    // Limits
+    'max_active_repairs_reached' => "You've reached the maximum of :max active repairs for your plan.",
+
+    // Repair Logs
+    'repairs_logs' => 'Repairs Logs',
+    'repairs_logs_description' => 'Here are the recent repair status changes.',
+    'log_id' => '#',
+    'log_repair_id' => 'Repair ID',
+    'log_previous_status' => 'Previous Status',
+    'log_new_status' => 'New Status',
+    'log_updated_at' => 'Updated At',
 ];

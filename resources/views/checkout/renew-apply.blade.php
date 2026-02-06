@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Renew Subscription - {{ $plan->name }} Plan</title>
+    <title>{{ __('checkout.renew_subscription') }} - {{ $plan->name }} Plan</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -36,7 +36,7 @@
                         <span class="ml-3 text-xl font-bold">MobileShop</span>
                     </a>
                     <a href="{{ route('owner.dashboard') }}" class="text-white hover:text-blue-200 transition">
-                        &larr; Back to Dashboard
+                        &larr; {{ __('checkout.back_to_dashboard') }}
                     </a>
                 </div>
             </div>
@@ -46,8 +46,8 @@
         <main class="container mx-auto px-6 py-12">
             <div class="max-w-2xl mx-auto">
                 <div class="text-center mb-8">
-                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Renew Your Subscription</h1>
-                    <p class="text-gray-600">Pay via Cash or Bank Transfer</p>
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">{{ __('checkout.renew_title') }}</h1>
+                    <p class="text-gray-600">{{ __('checkout.pay_via_cash_bank') }}</p>
                 </div>
 
                 <div class="bg-white rounded-xl shadow-lg p-8">
@@ -56,7 +56,7 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <h3 class="font-semibold text-gray-800">{{ $shop->name }}</h3>
-                                <p class="text-sm text-gray-600">Current Plan: <span class="font-medium text-blue-600">{{ ucfirst($plan->name) }}</span></p>
+                                <p class="text-sm text-gray-600">{{ __('checkout.current_plan') }}: <span class="font-medium text-blue-600">{{ ucfirst($plan->name) }}</span></p>
                             </div>
                             <div class="flex items-center gap-2">
                                 <!-- Bank Icon -->
@@ -76,9 +76,9 @@
                         @if($shopPlan->ends_at)
                         <p class="text-sm text-gray-500 mt-2">
                             @if($shopPlan->status === 'expired' || $shopPlan->status === 'grace')
-                            Ended on: {{ \Carbon\Carbon::parse($shopPlan->ends_at)->format('M d, Y') }}
+                            {{ __('checkout.ended_on') }}: {{ \Carbon\Carbon::parse($shopPlan->ends_at)->format('M d, Y') }}
                             @else
-                            Expires on: {{ \Carbon\Carbon::parse($shopPlan->ends_at)->format('M d, Y') }}
+                            {{ __('checkout.expires_on') }}: {{ \Carbon\Carbon::parse($shopPlan->ends_at)->format('M d, Y') }}
                             @endif
                         </p>
                         @endif
@@ -91,11 +91,11 @@
                                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                             </svg>
                             <div class="text-sm text-amber-800">
-                                <p class="font-medium mb-1">How it works:</p>
+                                <p class="font-medium mb-1">{{ __('checkout.how_it_works') }}</p>
                                 <ol class="list-decimal list-inside space-y-1 text-amber-700">
-                                    <li>Submit your renewal request below</li>
-                                    <li>We'll contact you with payment details</li>
-                                    <li>Once payment is confirmed, your subscription will be extended</li>
+                                    <li>{{ __('checkout.apply_step_1') }}</li>
+                                    <li>{{ __('checkout.apply_step_2') }}</li>
+                                    <li>{{ __('checkout.apply_step_3') }}</li>
                                 </ol>
                             </div>
                         </div>
@@ -108,7 +108,7 @@
                         <!-- Duration Selector -->
                         <div>
                             <label for="duration_months" class="block text-sm font-medium text-gray-700 mb-2">
-                                Renewal Duration <span class="text-red-500">*</span>
+                                {{ __('checkout.renewal_duration') }} <span class="text-red-500">*</span>
                             </label>
                             <select id="duration_months" name="duration_months" required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
@@ -124,20 +124,20 @@
                         <!-- Price Display -->
                         <div class="bg-gray-50 rounded-lg p-4">
                             <div class="flex justify-between items-center mb-2">
-                                <span class="text-gray-600">Monthly Price</span>
+                                <span class="text-gray-600">{{ __('checkout.monthly_price') }}</span>
                                 <span>&euro;{{ number_format($plan->price_monthly, 2) }}</span>
                             </div>
                             <div class="flex justify-between items-center mb-2" id="original-price-row" style="display: none;">
-                                <span class="text-gray-600">Original Price</span>
+                                <span class="text-gray-600">{{ __('checkout.original_price') }}</span>
                                 <span id="original-price" class="line-through text-gray-400"></span>
                             </div>
                             <div class="flex justify-between items-center mb-2" id="savings-row" style="display: none;">
-                                <span class="text-green-600 font-medium">You Save</span>
+                                <span class="text-green-600 font-medium">{{ __('checkout.you_save') }}</span>
                                 <span id="savings" class="text-green-600 font-medium"></span>
                             </div>
                             <div class="border-t pt-2 mt-2">
                                 <div class="flex justify-between items-center">
-                                    <span class="text-lg font-semibold text-gray-800">Total</span>
+                                    <span class="text-lg font-semibold text-gray-800">{{ __('checkout.total') }}</span>
                                     <span id="total-price" class="text-2xl font-bold text-blue-600">
                                         &euro;{{ number_format($plan->price_monthly, 2) }}
                                     </span>
@@ -148,11 +148,11 @@
                         <!-- Message -->
                         <div>
                             <label for="message" class="block text-sm font-medium text-gray-700 mb-1">
-                                Additional Message (Optional)
+                                {{ __('checkout.additional_message') }}
                             </label>
                             <textarea id="message" name="message" rows="3"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                placeholder="Any questions or special requests...">{{ old('message') }}</textarea>
+                                placeholder="{{ __('checkout.message_placeholder') }}">{{ old('message') }}</textarea>
                             @error('message')
                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                             @enderror
@@ -164,23 +164,23 @@
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                             </svg>
-                            Submit Renewal Request
+                            {{ __('checkout.submit_renewal_request') }}
                         </button>
 
                         <p class="text-xs text-gray-500 text-center">
-                            We'll contact you within 24 hours with payment instructions.
+                            {{ __('checkout.contact_within_24h') }}
                         </p>
                     </form>
                 </div>
 
                 <!-- Alternative Option -->
                 <div class="text-center mt-6">
-                    <p class="text-gray-600 mb-2">Want instant renewal?</p>
+                    <p class="text-gray-600 mb-2">{{ __('checkout.want_instant_renewal') }}</p>
                     <a href="{{ route('renew') }}" class="inline-flex items-center gap-2 text-blue-600 font-medium hover:text-blue-700 transition">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/>
                         </svg>
-                        Pay with PayPal or Card instead
+                        {{ __('checkout.pay_with_paypal_card') }}
                     </a>
                 </div>
             </div>

@@ -85,7 +85,7 @@ class OwnerDashboardController extends Controller
         // Calculate days remaining on subscription
         $daysRemaining = 0;
         if ($shop->shopPlan && $shop->shopPlan->ends_at) {
-            $daysRemaining = (int) Carbon::now()->diffInDays($shop->shopPlan->ends_at, false);
+            $daysRemaining = (int) ceil(Carbon::now()->floatDiffInDays($shop->shopPlan->ends_at, false));
             $daysRemaining = max(0, $daysRemaining);
         }
 

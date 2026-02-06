@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Renewal Request Submitted - MobileShop</title>
+    <title>{{ __('checkout.renewal_request_submitted') }} - MobileShop</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -52,9 +52,9 @@
 
                 <!-- Success Message -->
                 <div class="bg-white rounded-xl shadow-lg p-8">
-                    <h1 class="text-2xl font-bold text-gray-800 mb-2">Renewal Request Submitted!</h1>
+                    <h1 class="text-2xl font-bold text-gray-800 mb-2">{{ __('checkout.renewal_request_submitted') }}</h1>
                     <p class="text-gray-600 mb-6">
-                        Thank you! We've received your renewal request and will contact you shortly with payment details.
+                        {{ __('checkout.renewal_thank_you') }}
                     </p>
 
                     @if($application)
@@ -65,14 +65,14 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
                             </svg>
                             <div class="flex-1">
-                                <h3 class="font-semibold text-green-800 mb-1">Upload Payment Proof</h3>
-                                <p class="text-sm text-green-700 mb-3">Already made the payment? Upload a screenshot of your receipt to speed up the verification process.</p>
+                                <h3 class="font-semibold text-green-800 mb-1">{{ __('checkout.upload_payment_proof') }}</h3>
+                                <p class="text-sm text-green-700 mb-3">{{ __('checkout.already_paid') }}</p>
                                 <a href="{{ route('plan.payment-proof', $application) }}"
                                    class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition text-sm">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                     </svg>
-                                    Upload Payment Proof Now
+                                    {{ __('checkout.upload_now') }}
                                 </a>
                             </div>
                         </div>
@@ -85,20 +85,20 @@
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
-                            What happens next?
+                            {{ __('checkout.what_happens_next') }}
                         </h3>
                         <ul class="space-y-2 text-sm text-blue-700">
                             <li class="flex items-start gap-2">
                                 <span class="w-5 h-5 bg-blue-200 text-blue-800 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold">1</span>
-                                <span>We'll review your renewal request</span>
+                                <span>{{ __('checkout.renew_step_1') }}</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <span class="w-5 h-5 bg-blue-200 text-blue-800 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold">2</span>
-                                <span>You'll receive an email with bank details or cash payment instructions</span>
+                                <span>{{ __('checkout.renew_step_2') }}</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <span class="w-5 h-5 bg-blue-200 text-blue-800 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold">3</span>
-                                <span>Once payment is confirmed, your subscription will be extended</span>
+                                <span>{{ __('checkout.renew_step_3') }}</span>
                             </li>
                         </ul>
                     </div>
@@ -106,7 +106,7 @@
                     <!-- Contact Info -->
                     <div class="bg-gray-50 rounded-lg p-4 mb-6">
                         <p class="text-sm text-gray-600">
-                            Questions? Contact us at<br>
+                            {{ __('checkout.questions') }}<br>
                             <a href="mailto:info@mobileshop.com" class="text-blue-600 font-medium hover:underline">info@mobileshop.com</a>
                         </p>
                     </div>
@@ -116,7 +116,7 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                         </svg>
-                        Back to Dashboard
+                        {{ __('checkout.back_to_dashboard') }}
                     </a>
                 </div>
             </div>

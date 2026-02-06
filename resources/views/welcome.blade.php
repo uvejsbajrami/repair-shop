@@ -108,7 +108,7 @@
      @endauth
      <a href="#home"
       class="block text-gray-700 hover:text-blue-600 hover:bg-gray-50 px-3 py-2 rounded-lg transition">Home</a>
-     <a href="#plans"
+     <a href="#plansSection"
       class="block text-gray-700 hover:text-blue-600 hover:bg-gray-50 px-3 py-2 rounded-lg transition">Plans</a>
      <a href="{{ route('track.repair') }}"
       class="block text-gray-700 hover:text-blue-600 hover:bg-gray-50 px-3 py-2 rounded-lg transition">Track
@@ -423,16 +423,14 @@
      <h4 class="font-bold text-lg mb-4">Quick Links</h4>
      <ul class="space-y-2 text-blue-100">
       <li><a href="#home" class="hover:text-white transition">Home</a></li>
-      <li><a href="#plans" class="hover:text-white transition">Plans</a></li>
+      <li><a href="#plansSection" class="hover:text-white transition">Plans</a></li>
       <li><a href="#contact" class="hover:text-white transition">Contact</a></li>
      </ul>
     </div>
     <div>
      <h4 class="font-bold text-lg mb-4">Support</h4>
      <ul class="space-y-2 text-blue-100">
-      <li><a href="#" class="hover:text-white transition">Help Center</a></li>
-      <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
-      <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+      <li><a href="{{ route('track.repair') }}" class="hover:text-white transition">Track Repair</a></li>
      </ul>
     </div>
     <div>

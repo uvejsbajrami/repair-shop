@@ -8,7 +8,7 @@
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
-                Add Repair
+                {{ __('repairs.add_repair') }}
             </span>
         </button>
 
@@ -17,17 +17,17 @@
             <!-- Status Filter -->
             <select wire:model.live="statusFilter"
                 class="px-4 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
-                <option value="all">All Status</option>
-                <option value="pending">Pending</option>
-                <option value="working">Working</option>
-                <option value="finished">Finished</option>
-                <option value="pickedup">Archived</option>
+                <option value="all">{{ __('repairs.all_status') }}</option>
+                <option value="pending">{{ __('repairs.status.pending') }}</option>
+                <option value="working">{{ __('repairs.status.working') }}</option>
+                <option value="finished">{{ __('repairs.status.finished') }}</option>
+                <option value="pickedup">{{ __('repairs.archived') }}</option>
             </select>
 
             <!-- Search Box -->
             <input wire:model.live.debounce.300ms="search"
                    type="text"
-                   placeholder="Search repairs..."
+                   placeholder="{{ __('repairs.search_repairs') }}"
                    class="px-4 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
     </div>
@@ -38,14 +38,14 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tracking Code</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Device</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Issue</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('repairs.tracking_code') }}</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('repairs.customer') }}</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('repairs.device') }}</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('repairs.issue') }}</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('common.status') }}</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('repairs.price') }}</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('repairs.created') }}</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('repairs.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -76,10 +76,10 @@
                                         {{ $repair->status === 'working' ? 'bg-green-100 text-green-700' : '' }}
                                         {{ $repair->status === 'finished' ? 'bg-blue-100 text-blue-700' : '' }}
                                         {{ $repair->status === 'pickedup' ? 'bg-purple-100 text-purple-700' : '' }}">
-                                    <option value="pending" {{ $repair->status === 'pending' ? 'selected' : '' }}>Pending</option>
-                                    <option value="working" {{ $repair->status === 'working' ? 'selected' : '' }}>Working</option>
-                                    <option value="finished" {{ $repair->status === 'finished' ? 'selected' : '' }}>Finished</option>
-                                    <option value="pickedup" {{ $repair->status === 'pickedup' ? 'selected' : '' }}>Picked Up</option>
+                                    <option value="pending" {{ $repair->status === 'pending' ? 'selected' : '' }}>{{ __('repairs.status.pending') }}</option>
+                                    <option value="working" {{ $repair->status === 'working' ? 'selected' : '' }}>{{ __('repairs.status.working') }}</option>
+                                    <option value="finished" {{ $repair->status === 'finished' ? 'selected' : '' }}>{{ __('repairs.status.finished') }}</option>
+                                    <option value="pickedup" {{ $repair->status === 'pickedup' ? 'selected' : '' }}>{{ __('repairs.status.pickedup') }}</option>
                                 </select>
                             </td>
 
@@ -98,7 +98,7 @@
                                 <div class="flex items-center space-x-2">
                                     <button wire:click="openEditModal({{ $repair->id }})"
                                         class="p-1 text-blue-600 hover:bg-blue-50 rounded transition"
-                                        title="Edit">
+                                        title="{{ __('repairs.edit') }}">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -106,9 +106,9 @@
                                     </button>
                                     @if(!($isEmployee ?? false))
                                     <button wire:click="deleteRepair({{ $repair->id }})"
-                                        onclick="return confirm('Are you sure you want to delete this repair?')"
+                                        onclick="return confirm('{{ __('repairs.confirm_delete') }}')"
                                         class="p-1 text-red-600 hover:bg-red-50 rounded transition"
-                                        title="Delete">
+                                        title="{{ __('repairs.delete') }}">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -124,8 +124,8 @@
                                 <svg class="mx-auto h-12 w-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                 </svg>
-                                <p class="mt-2 text-sm font-medium">No repairs found</p>
-                                <p class="text-xs mt-1">Add your first repair to get started</p>
+                                <p class="mt-2 text-sm font-medium">{{ __('repairs.no_repairs_found') }}</p>
+                                <p class="text-xs mt-1">{{ __('repairs.add_first_repair') }}</p>
                             </td>
                         </tr>
                     @endforelse
@@ -146,38 +146,38 @@
             <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg transform transition-all my-4 flex flex-col max-h-[90vh]">
                 <!-- Modal Header -->
                 <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 rounded-t-xl flex-shrink-0">
-                    <h2 class="text-xl font-bold text-white">{{ $editingRepairId ? 'Edit Repair' : 'Add New Repair' }}</h2>
+                    <h2 class="text-xl font-bold text-white">{{ $editingRepairId ? __('repairs.edit_repair') : __('repairs.add_new_repair') }}</h2>
                 </div>
 
                 <!-- Modal Body -->
                 <div class="p-6 space-y-4 overflow-y-auto flex-1">
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Customer Name</label>
-                        <input wire:model="customer_name" type="text" placeholder="Enter customer name"
+                        <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('repairs.customer_name') }}</label>
+                        <input wire:model="customer_name" type="text" placeholder="{{ __('repairs.enter_customer_name') }}"
                             class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Customer Phone</label>
-                        <input wire:model="customer_phone" type="tel" placeholder="Enter phone number"
+                        <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('repairs.customer_phone') }}</label>
+                        <input wire:model="customer_phone" type="tel" placeholder="{{ __('repairs.enter_phone') }}"
                             class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Device Type</label>
-                        <input wire:model="device_type" type="text" placeholder="e.g., iPhone 13, Samsung Galaxy"
+                        <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('repairs.device_type') }}</label>
+                        <input wire:model="device_type" type="text" placeholder="{{ __('repairs.enter_device') }}"
                             class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Issue Description</label>
-                        <textarea wire:model="issue_description" placeholder="Describe the issue..."
+                        <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('repairs.issue_description') }}</label>
+                        <textarea wire:model="issue_description" placeholder="{{ __('repairs.describe_issue') }}"
                             class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition"
                             rows="3"></textarea>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Price Amount</label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('repairs.price_amount') }}</label>
                         <div class="relative">
                             <span
                                 class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 font-medium">$</span>
@@ -188,8 +188,8 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Notes (Optional)</label>
-                        <textarea wire:model="notes" placeholder="Additional notes..."
+                        <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('repairs.notes_optional') }}</label>
+                        <textarea wire:model="notes" placeholder="{{ __('repairs.additional_notes') }}"
                             class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition"
                             rows="2"></textarea>
                     </div>
@@ -198,9 +198,9 @@
                 <!-- Modal Footer -->
                 <div class="px-6 py-4 bg-slate-50 rounded-b-xl flex gap-3 flex-shrink-0">
                     <button wire:click="{{ $editingRepairId ? 'closeEditModal' : 'closeAddModal' }}" type="button"
-                        class="flex-1 px-4 py-2.5 bg-white border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition font-medium">Cancel</button>
+                        class="flex-1 px-4 py-2.5 bg-white border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition font-medium">{{ __('repairs.cancel') }}</button>
                     <button wire:click="saveRepair" type="button"
-                        class="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium shadow-sm">{{ $editingRepairId ? 'Update Repair' : 'Save Repair' }}</button>
+                        class="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium shadow-sm">{{ $editingRepairId ? __('repairs.update_repair') : __('repairs.save_repair') }}</button>
                 </div>
             </div>
         </div>

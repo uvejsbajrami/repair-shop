@@ -1,6 +1,6 @@
 @extends('layouts.employee')
 
-@section('title', 'Repairs')
+@section('title', __('common.repairs'))
 
 @section('content')
 
@@ -14,8 +14,8 @@
    @livewire('repairs-board', ['isEmployee' => true])
 @else
    <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
-       <p class="font-medium">Unable to Load Repairs</p>
-       <p class="text-sm mt-1">There was an issue loading the repairs board.</p>
+       <p class="font-medium">{{ __('dashboard.unable_to_load_repairs') }}</p>
+       <p class="text-sm mt-1">{{ __('dashboard.issue_loading_repairs') }}</p>
    </div>
 @endif
 

@@ -35,6 +35,12 @@ class RenewController extends Controller
                 ->with('error', 'No active subscription found.');
         }
 
+        // Only allow renewal when plan is in grace or expired status
+        if (!in_array($shop->shopPlan->status, ['grace', 'expired'])) {
+            return redirect()->route('owner.dashboard')
+                ->with('info', 'You can renew your plan when it enters the grace period or has expired.');
+        }
+
         $plan = $shop->shopPlan->plan;
 
         $durations = [
@@ -103,6 +109,11 @@ class RenewController extends Controller
                 return response()->json(['error' => 'No subscription found'], 404);
             }
 
+            // Verify plan is in grace or expired status
+            if (!in_array($shop->shopPlan->status, ['grace', 'expired'])) {
+                return response()->json(['error' => 'Renewal only available during grace period or when expired'], 403);
+            }
+
             $plan = $shop->shopPlan->plan;
             $durationMonths = (int) $request->duration_months;
             $totalPrice = $plan->calculatePrice($durationMonths);
@@ -156,6 +167,11 @@ class RenewController extends Controller
 
                 try {
                     $shop = Shop::with('shopPlan.plan')->findOrFail($renewData['shop_id']);
+
+                    // Verify plan is still in grace or expired status before processing payment
+                    if (!in_array($shop->shopPlan->status, ['grace', 'expired'])) {
+                        return response()->json(['error' => 'Renewal only available during grace period or when expired'], 403);
+                    }
 
                     // Renew subscription
                     $this->subscriptionService->renewSubscription(

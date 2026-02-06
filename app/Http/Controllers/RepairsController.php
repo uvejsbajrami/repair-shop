@@ -113,7 +113,7 @@ class RepairsController extends Controller
                     $repair->issue_description,
                     $repair->notes,
                     $repair->status,
-                    $repair->price_amount . trackingshop($repair->shop_id)->currency_symbol,
+                    $repair->price_amount . (trackingshop($repair->shop_id)?->currency_symbol ?? '€'),
                     $repair->created_at->format('d/m/Y H:i'),
                     $repair->updated_at->format('d/m/Y H:i'),
                 ]);

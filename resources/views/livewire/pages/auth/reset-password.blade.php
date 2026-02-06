@@ -64,12 +64,12 @@ new #[Layout('layouts.guest')] class extends Component
 }; ?>
 
 <div>
-    <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Reset Password</h2>
+    <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">{{ __('auth.reset_password') }}</h2>
 
     <form wire:submit="resetPassword">
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" class="text-gray-700 font-semibold" />
+            <x-input-label for="email" :value="__('auth.email')" class="text-gray-700 font-semibold" />
             <x-text-input wire:model="email" id="email"
                 class="block mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
                 type="email" name="email" required autofocus autocomplete="username"
@@ -79,29 +79,29 @@ new #[Layout('layouts.guest')] class extends Component
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" class="text-gray-700 font-semibold" />
+            <x-input-label for="password" :value="__('auth.password')" class="text-gray-700 font-semibold" />
             <x-text-input wire:model="password" id="password"
                 class="block mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
                 type="password" name="password" required autocomplete="new-password"
-                placeholder="New password" />
+                placeholder="{{ __('auth.new_password') }}" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" class="text-gray-700 font-semibold" />
+            <x-input-label for="password_confirmation" :value="__('auth.confirm_password')" class="text-gray-700 font-semibold" />
             <x-text-input wire:model="password_confirmation" id="password_confirmation"
                 class="block mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
                 type="password"
                 name="password_confirmation" required autocomplete="new-password"
-                placeholder="Confirm new password" />
+                placeholder="{{ __('auth.confirm_new_password') }}" />
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
         <div class="mt-6">
             <button type="submit"
                 class="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg">
-                {{ __('Reset Password') }}
+                {{ __('auth.reset_password') }}
             </button>
         </div>
     </form>

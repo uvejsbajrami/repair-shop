@@ -38,17 +38,16 @@ class EditPlanApplication extends EditRecord
        // Get the plan for grace period calculation
        $plan = Plan::find($record->plan_id);
 
-       $graceDays = match ($plan->slug) {
-        'basic' => 3,
-        'standard' => 5,
-        'pro' => 7,
-        default => 3,
-       };
+       $graceDays = $plan->getGracePeriodDays();
+       $currencySymbols = ['EUR' => '€', 'MKD' => 'ден'];
        $shopSettings = ShopSetting::where('shop_id', $shop->id)->first();
        if (!$shopSettings) {
         // Create default settings if none exist
         ShopSetting::create([
          'shop_id' => $shop->id,
+         'currency_code' => $record->currency_code ?? 'EUR',
+         'currency_symbol' => $currencySymbols[$record->currency_code ?? 'EUR'] ?? '€',
+         'language_code' => $record->language_code ?? 'en',
         ]);
        }
        // Determine the start date for extension
@@ -56,7 +55,7 @@ class EditPlanApplication extends EditRecord
        $currentEndsAt = $shopPlan->ends_at ? \Carbon\Carbon::parse($shopPlan->ends_at) : now();
        $startFrom = $currentEndsAt->isPast() ? now() : $currentEndsAt;
 
-       $newEndsAt = $startFrom->copy()->addMonths($record->duration_months);
+       $newEndsAt = $startFrom->copy()->addDays($record->duration_months * 30);
 
        $shopPlan->update([
         'status' => 'active',
@@ -82,8 +81,14 @@ class EditPlanApplication extends EditRecord
       $shop->update(['is_active' => true]);
 
       // Create default settings if none exist
+      $currencySymbols = ['EUR' => '€', 'MKD' => 'ден'];
       if (!ShopSetting::where('shop_id', $shop->id)->exists()) {
-       ShopSetting::create(['shop_id' => $shop->id]);
+       ShopSetting::create([
+        'shop_id' => $shop->id,
+        'currency_code' => $record->currency_code ?? 'EUR',
+        'currency_symbol' => $currencySymbols[$record->currency_code ?? 'EUR'] ?? '€',
+        'language_code' => $record->language_code ?? 'en',
+       ]);
       }
 
       ShopPlan::where('shop_id', $shop->id)
@@ -94,7 +99,7 @@ class EditPlanApplication extends EditRecord
         'billing_cycle' => $record->duration_months >= 12 ? 'yearly' : 'monthly',
         'duration_months' => $record->duration_months,
         'starts_at' => now(),
-        'ends_at' => now()->addMonths($record->duration_months),
+        'ends_at' => now()->addDays($record->duration_months * 30),
        ]);
      } else {
       // Create new shop
@@ -105,18 +110,19 @@ class EditPlanApplication extends EditRecord
        'is_active' => true,
       ]);
 
-      // Create default shop settings
-      ShopSetting::create(['shop_id' => $shop->id]);
+      // Create shop settings with user's preferences
+      $currencySymbols = ['EUR' => '€', 'MKD' => 'ден'];
+      ShopSetting::create([
+       'shop_id' => $shop->id,
+       'currency_code' => $record->currency_code ?? 'EUR',
+       'currency_symbol' => $currencySymbols[$record->currency_code ?? 'EUR'] ?? '€',
+       'language_code' => $record->language_code ?? 'en',
+      ]);
 
       // Get the plan to check its slug for grace period
       $plan = Plan::find($record->plan_id);
 
-      $graceDays = match ($plan->slug) {
-       'basic' => 3,
-       'standard' => 5,
-       'pro' => 7,
-       default => 3,
-      };
+      $graceDays = $plan->getGracePeriodDays();
 
       // Create ShopPlan only for new shop
       ShopPlan::create([
@@ -126,13 +132,13 @@ class EditPlanApplication extends EditRecord
        'duration_months' => $record->duration_months,
        'status' => 'active',
        'starts_at' => now(),
-       'ends_at' => now()->addMonths($record->duration_months),
-       'grace_ends_at' => now()->addMonths($record->duration_months)->addDays($graceDays),
+       'ends_at' => now()->addDays($record->duration_months * 30),
+       'grace_ends_at' => now()->addDays($record->duration_months * 30)->addDays($graceDays),
       ]);
      }
     }
     //send approval email to user
-    $planEndAt = now()->addMonths($record->duration_months)->addDays($plan->slug === 'basic' ? 3 : ($plan->slug === 'standard' ? 5 : 7));
+    $planEndAt = now()->addDays($record->duration_months * 30)->addDays($plan->getGracePeriodDays());
     \Mail::to($record->applicant_email)->send(new PlanApplicationApproveOrReject($record, Plan::find($record->plan_id), null, $planEndAt ));
     break;
    case 'rejected':

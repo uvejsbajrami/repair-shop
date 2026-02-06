@@ -34,30 +34,30 @@ new #[Layout('layouts.guest')] class extends Component
 }; ?>
 
 <div>
-    <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Confirm Password</h2>
+    <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">{{ __('auth.confirm_password_title') }}</h2>
 
     <div class="mb-4 text-sm text-gray-600">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+        {{ __('auth.confirm_password_message') }}
     </div>
 
     <form wire:submit="confirmPassword">
         <!-- Password -->
         <div>
-            <x-input-label for="password" :value="__('Password')" class="text-gray-700 font-semibold" />
+            <x-input-label for="password" :value="__('auth.password')" class="text-gray-700 font-semibold" />
             <x-text-input wire:model="password"
                 id="password"
                 class="block mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
                 type="password"
                 name="password"
                 required autocomplete="current-password"
-                placeholder="Enter your password" />
+                placeholder="{{ __('auth.enter_your_password') }}" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <div class="mt-6">
             <button type="submit"
                 class="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg">
-                {{ __('Confirm') }}
+                {{ __('auth.confirm') }}
             </button>
         </div>
     </form>

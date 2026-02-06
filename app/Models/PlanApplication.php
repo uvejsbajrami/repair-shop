@@ -23,6 +23,8 @@ class PlanApplication extends Model
         'applicant_phone',
         'billing_cycle',
         'duration_months',
+        'language_code',
+        'currency_code',
         'message',
         'status',
         'type',

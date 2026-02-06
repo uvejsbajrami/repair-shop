@@ -1,13 +1,13 @@
 @extends('layouts.owner')
 
-@section('title', 'Dashboard')
+@section('title', __('dashboard.overview'))
 
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
         <div>
-            <h2 class="text-3xl font-bold text-gray-800">Overview</h2>
-            <p class="text-gray-600 mt-1">Welcome back! <b>{{ $shop ? $shop->name : '' }}</b> Here's what's happening today.</p>
+            <h2 class="text-3xl font-bold text-gray-800">{{ __('dashboard.overview') }}</h2>
+            <p class="text-gray-600 mt-1">{{ __('dashboard.welcome_back') }} <b>{{ $shop ? $shop->name : '' }}</b> {{ __('dashboard.here_is_what_happening_today') }}</p>
         </div>
 
         <!-- Stats Cards -->
@@ -16,7 +16,7 @@
             <div class="bg-white rounded-lg shadow p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-gray-500 text-sm font-medium">Total Repairs</p>
+                        <p class="text-gray-500 text-sm font-medium">{{ __('dashboard.total_repairs') }}</p>
                         <p class="text-3xl font-bold text-gray-800 mt-2">{{ $repairs }}</p>
                     </div>
                     <div class="p-4 rounded-full" style="background-color: color-mix(in srgb, var(--primary-color) 15%, white);">
@@ -29,14 +29,14 @@
                         </svg>
                     </div>
                 </div>
-                <p class="text-xs text-gray-500 mt-4">All time</p>
+                <p class="text-xs text-gray-500 mt-4">{{ __('dashboard.all_time') }}</p>
             </div>
 
             <!-- Card 2 -->
             <div class="bg-white rounded-lg shadow p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-gray-500 text-sm font-medium">Active Repairs</p>
+                        <p class="text-gray-500 text-sm font-medium">{{ __('dashboard.active_repairs') }}</p>
                         <p class="text-3xl font-bold text-orange-600 mt-2">{{ $activeRepairs }}</p>
                     </div>
                     <div class="bg-orange-100 p-4 rounded-full">
@@ -47,13 +47,13 @@
                         </svg>
                     </div>
                 </div>
-                <p class="text-xs text-gray-500 mt-4">In progress</p>
+                <p class="text-xs text-gray-500 mt-4">{{ __('dashboard.in_progress') }}</p>
             </div>
             <!-- Card 3 -->
             <div class="bg-white rounded-lg shadow p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-gray-500 text-sm font-medium">Pending Approvals</p>
+                        <p class="text-gray-500 text-sm font-medium">{{ __('dashboard.pending_approvals') }}</p>
                         <p class="text-3xl font-bold text-yellow-600 mt-2">{{ $pendingRepairs > 0 ? $pendingRepairs : 0 }}</p>
                     </div>
                     <div class="bg-yellow-100 p-4 rounded-full">
@@ -64,7 +64,7 @@
                         </svg>
                     </div>
                 </div>
-                <p class="text-xs text-gray-500 mt-4">Awaiting action</p>
+                <p class="text-xs text-gray-500 mt-4">{{ __('dashboard.awaiting_action') }}</p>
             </div>
 
             <!-- Card 4 -->
@@ -72,7 +72,7 @@
                 <div class="bg-white rounded-lg shadow p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500 text-sm font-medium">Earnings This Month</p>
+                            <p class="text-gray-500 text-sm font-medium">{{ __('dashboard.earnings_this_month') }}</p>
                             <p class="text-3xl font-bold mt-2" style="color: var(--accent-color);">
                                 {{ number_format($monthlyEarnings / 100, 2) }}
                                 {{ getCurrencySymbol($shop ? $shop->id : null) }}
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <p class="text-xs mt-4" style="color: {{ $earningsPercentage >= 0 ? 'var(--accent-color)' : '#dc2626' }};">
-                        {{ $earningsPercentage >= 0 ? '+' : '' }}{{ $earningsPercentage }}% from last month
+                        {{ $earningsPercentage >= 0 ? '+' : '' }}{{ $earningsPercentage }}% {{ __('dashboard.from_last_month') }}
                     </p>
                 </div>
             @endif
@@ -100,7 +100,7 @@
                 <div class="bg-white rounded-lg shadow p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500 text-sm font-medium">Completed This Month</p>
+                            <p class="text-gray-500 text-sm font-medium">{{ __('dashboard.completed_this_month') }}</p>
                             <p class="text-3xl font-bold text-green-600 mt-2">{{ $completedThisMonth }}</p>
                         </div>
                         <div class="bg-green-100 p-4 rounded-full">
@@ -110,14 +110,14 @@
                             </svg>
                         </div>
                     </div>
-                    <p class="text-xs text-gray-500 mt-4">Finished & picked up</p>
+                    <p class="text-xs text-gray-500 mt-4">{{ __('dashboard.finished_picked_up') }}</p>
                 </div>
 
                 <!-- Ready for Pickup -->
                 <div class="bg-white rounded-lg shadow p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500 text-sm font-medium">Ready for Pickup</p>
+                            <p class="text-gray-500 text-sm font-medium">{{ __('dashboard.ready_for_pickup') }}</p>
                             <p class="text-3xl font-bold text-blue-600 mt-2">{{ $readyForPickup }}</p>
                         </div>
                         <div class="bg-blue-100 p-4 rounded-full">
@@ -127,14 +127,14 @@
                             </svg>
                         </div>
                     </div>
-                    <p class="text-xs text-gray-500 mt-4">Awaiting customer</p>
+                    <p class="text-xs text-gray-500 mt-4">{{ __('dashboard.awaiting_customer') }}</p>
                 </div>
 
                 <!-- Employees -->
                 <div class="bg-white rounded-lg shadow p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500 text-sm font-medium">Employees</p>
+                            <p class="text-gray-500 text-sm font-medium">{{ __('dashboard.employees') }}</p>
                             <p class="text-3xl font-bold text-purple-600 mt-2">{{ $employeeCount }}</p>
                         </div>
                         <div class="bg-purple-100 p-4 rounded-full">
@@ -144,14 +144,14 @@
                             </svg>
                         </div>
                     </div>
-                    <p class="text-xs text-gray-500 mt-4">Active team members</p>
+                    <p class="text-xs text-gray-500 mt-4">{{ __('dashboard.active_team_members') }}</p>
                 </div>
 
                 <!-- Subscription Status -->
                 <div class="bg-white rounded-lg shadow p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500 text-sm font-medium">Subscription</p>
+                            <p class="text-gray-500 text-sm font-medium">{{ __('dashboard.subscription') }}</p>
                             <p class="text-3xl font-bold mt-2 {{ $daysRemaining <= 7 ? 'text-red-600' : 'text-gray-800' }}">{{ $daysRemaining }}</p>
                         </div>
                         <div class="{{ $daysRemaining <= 7 ? 'bg-red-100' : 'bg-gray-100' }} p-4 rounded-full">
@@ -162,7 +162,7 @@
                         </div>
                     </div>
                     <p class="text-xs {{ $daysRemaining <= 7 ? 'text-red-500' : 'text-gray-500' }} mt-4">
-                        {{ $daysRemaining <= 7 ? 'Renew soon!' : 'Days remaining' }}
+                        {{ $daysRemaining <= 7 ? __('dashboard.renew_soon') : __('dashboard.days_remaining') }}
                     </p>
                 </div>
             </div>
@@ -171,7 +171,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <!-- Quick Actions -->
                 <div class="bg-white rounded-lg shadow p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __('dashboard.quick_actions') }}</h3>
                     <div class="space-y-3">
                         <a href="{{ route('owner.repairs') }}" class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200">
                             <div class="p-2 rounded-full mr-3" style="background-color: color-mix(in srgb, var(--primary-color) 15%, white);">
@@ -179,7 +179,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                                 </svg>
                             </div>
-                            <span class="text-gray-700 font-medium">Add Repair</span>
+                            <span class="text-gray-700 font-medium">{{ __('dashboard.add_repair') }}</span>
                         </a>
                         <a href="{{ route('owner.repairs') }}" class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200">
                             <div class="bg-blue-100 p-2 rounded-full mr-3">
@@ -187,7 +187,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                                 </svg>
                             </div>
-                            <span class="text-gray-700 font-medium">View All Repairs</span>
+                            <span class="text-gray-700 font-medium">{{ __('dashboard.view_all_repairs') }}</span>
                         </a>
                         <a href="{{ route('owner.employees.index') }}" class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200">
                             <div class="bg-purple-100 p-2 rounded-full mr-3">
@@ -195,7 +195,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                                 </svg>
                             </div>
-                            <span class="text-gray-700 font-medium">Manage Employees</span>
+                            <span class="text-gray-700 font-medium">{{ __('dashboard.manage_employees') }}</span>
                         </a>
                         <a href="{{ route('owner.settings') }}" class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200">
                             <div class="bg-gray-100 p-2 rounded-full mr-3">
@@ -204,7 +204,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 </svg>
                             </div>
-                            <span class="text-gray-700 font-medium">Shop Settings</span>
+                            <span class="text-gray-700 font-medium">{{ __('dashboard.shop_settings') }}</span>
                         </a>
                     </div>
                 </div>
@@ -212,18 +212,18 @@
                 <!-- Recent Repairs -->
                 <div class="bg-white rounded-lg shadow p-6 lg:col-span-2">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold text-gray-800">Recent Repairs</h3>
-                        <a href="{{ route('owner.repairs') }}" class="text-sm font-medium hover:underline" style="color: var(--primary-color);">View all</a>
+                        <h3 class="text-lg font-semibold text-gray-800">{{ __('dashboard.recent_repairs') }}</h3>
+                        <a href="{{ route('owner.repairs') }}" class="text-sm font-medium hover:underline" style="color: var(--primary-color);">{{ __('dashboard.view_all') }}</a>
                     </div>
                     @if($recentRepairs->count() > 0)
                         <div class="overflow-x-auto">
                             <table class="w-full">
                                 <thead>
                                     <tr class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        <th class="pb-3">Customer</th>
-                                        <th class="pb-3">Device</th>
-                                        <th class="pb-3">Status</th>
-                                        <th class="pb-3">Assigned To</th>
+                                        <th class="pb-3">{{ __('dashboard.customer') }}</th>
+                                        <th class="pb-3">{{ __('dashboard.device') }}</th>
+                                        <th class="pb-3">{{ __('dashboard.status') }}</th>
+                                        <th class="pb-3">{{ __('dashboard.assigned_to') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-100">
@@ -252,7 +252,7 @@
                                                 </span>
                                             </td>
                                             <td class="py-3 text-gray-600">
-                                                {{ $repair->assignedEmployee ? $repair->assignedEmployee->name : 'Unassigned' }}
+                                                {{ $repair->assignedEmployee ? $repair->assignedEmployee->name : __('dashboard.unassigned') }}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -264,8 +264,8 @@
                             <svg class="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                             </svg>
-                            <p class="text-gray-500">No repairs yet</p>
-                            <a href="{{ route('owner.repairs') }}" class="mt-2 inline-block text-sm font-medium" style="color: var(--primary-color);">Create your first repair</a>
+                            <p class="text-gray-500">{{ __('dashboard.no_repairs_yet') }}</p>
+                            <a href="{{ route('owner.repairs') }}" class="mt-2 inline-block text-sm font-medium" style="color: var(--primary-color);">{{ __('dashboard.create_first_repair') }}</a>
                         </div>
                     @endif
                 </div>

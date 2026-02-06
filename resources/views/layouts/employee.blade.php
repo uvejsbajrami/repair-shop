@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Employee Dashboard') - {{ config('app.name') }}</title>
+    <title>@yield('title', __('common.employee_dashboard')) - {{ config('app.name') }}</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -31,7 +31,7 @@
             <!-- Sidebar Header -->
             <div class="p-6 bg-green-700">
                 <a href="/">
-                    <h1 class="text-2xl font-bold">Employee Panel</h1>
+                    <h1 class="text-2xl font-bold">{{ __('common.employee_panel') }}</h1>
                 </a>
                 @php
                     $employeeShop = auth()->user()->employee?->shop;
@@ -50,7 +50,7 @@
                             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                         </path>
                     </svg>
-                    <span>Dashboard</span>
+                    <span>{{ __('common.dashboard') }}</span>
                 </a>
 
                 <a href="{{ route('employee.repairs') }}"
@@ -62,7 +62,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
-                    <span>Repairs</span>
+                    <span>{{ __('common.repairs') }}</span>
                 </a>
             </nav>
 
@@ -70,10 +70,10 @@
             <div class="px-4 py-4 border-t border-green-500">
                 <div class="flex items-center">
                     <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=059669&color=fff"
-                        alt="Profile" class="w-10 h-10 rounded-full">
+                        alt="{{ __('common.profile') }}" class="w-10 h-10 rounded-full">
                     <div class="ml-3">
                         <p class="text-sm font-medium">{{ Auth::user()->name }}</p>
-                        <p class="text-xs text-green-200">Employee</p>
+                        <p class="text-xs text-green-200">{{ __('common.employee') }}</p>
                     </div>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                     </button>
 
                     <!-- Page Title (visible on mobile) -->
-                    <h2 class="md:hidden text-lg font-semibold text-gray-800">Employee Panel</h2>
+                    <h2 class="md:hidden text-lg font-semibold text-gray-800">{{ __('common.employee_panel') }}</h2>
 
                     <!-- Right Side: Profile -->
                     <div class="flex items-center space-x-4 ml-auto">
@@ -101,10 +101,10 @@
                         <div class="relative" x-data="{ open: false }">
                             <button @click="open = !open" class="flex items-center space-x-3 focus:outline-none">
                                 <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=059669&color=fff"
-                                    alt="Profile" class="w-10 h-10 rounded-full border-2 border-gray-200">
+                                    alt="{{ __('common.profile') }}" class="w-10 h-10 rounded-full border-2 border-gray-200">
                                 <div class="hidden md:block text-left">
                                     <p class="text-sm font-medium text-gray-700">{{ Auth::user()->name }}</p>
-                                    <p class="text-xs text-gray-500">Employee</p>
+                                    <p class="text-xs text-gray-500">{{ __('common.employee') }}</p>
                                 </div>
                                 <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24">
@@ -132,7 +132,7 @@
                                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
                                         </path>
                                     </svg>
-                                    Profile
+                                    {{ __('common.profile') }}
                                 </a>
 
                                 <div class="border-t border-gray-100"></div>
@@ -147,7 +147,7 @@
                                                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
                                             </path>
                                         </svg>
-                                        Log Out
+                                        {{ __('common.log_out') }}
                                     </button>
                                 </form>
                             </div>
@@ -197,7 +197,7 @@
         class="fixed left-0 top-0 bottom-0 w-64 bg-green-600 text-white z-50 transform -translate-x-full transition-transform duration-300 md:hidden overflow-y-auto">
         <div class="p-6 bg-green-700 flex justify-between items-center">
             <div>
-                <h1 class="text-xl font-bold">Employee Panel</h1>
+                <h1 class="text-xl font-bold">{{ __('common.employee_panel') }}</h1>
                 @if($employeeShop)
                     <p class="text-green-200 text-sm mt-1">{{ $employeeShop->name }}</p>
                 @endif
@@ -218,7 +218,7 @@
                         d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                     </path>
                 </svg>
-                <span>Dashboard</span>
+                <span>{{ __('common.dashboard') }}</span>
             </a>
 
             <a href="{{ route('employee.repairs') }}"
@@ -230,7 +230,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                 </svg>
-                <span>Repairs</span>
+                <span>{{ __('common.repairs') }}</span>
             </a>
         </nav>
     </aside>

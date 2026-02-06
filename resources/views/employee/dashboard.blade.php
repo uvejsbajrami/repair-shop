@@ -1,13 +1,13 @@
 @extends('layouts.employee')
 
-@section('title', 'Dashboard')
+@section('title', __('common.dashboard'))
 
 @section('content')
 <div class="max-w-6xl mx-auto">
     <!-- Welcome Header -->
     <div class="mb-8">
-        <h1 class="text-2xl font-bold text-gray-800">Welcome back, {{ auth()->user()->name }}!</h1>
-        <p class="text-gray-600 mt-1">Here's what's happening at {{ $shop->name }} today.</p>
+        <h1 class="text-2xl font-bold text-gray-800">{{ __('dashboard.welcome_back_name', ['name' => auth()->user()->name]) }}</h1>
+        <p class="text-gray-600 mt-1">{{ __('dashboard.happening_at_shop', ['shop' => $shop->name]) }}</p>
     </div>
 
     <!-- Stats Grid -->
@@ -21,7 +21,7 @@
                     </svg>
                 </div>
                 <div class="ml-4">
-                    <p class="text-sm text-gray-500">Total Repairs</p>
+                    <p class="text-sm text-gray-500">{{ __('dashboard.total_repairs') }}</p>
                     <p class="text-2xl font-bold text-gray-800">{{ $repairs }}</p>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                     </svg>
                 </div>
                 <div class="ml-4">
-                    <p class="text-sm text-gray-500">Active Repairs</p>
+                    <p class="text-sm text-gray-500">{{ __('dashboard.active_repairs') }}</p>
                     <p class="text-2xl font-bold text-gray-800">{{ $activeRepairs }}</p>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                     </svg>
                 </div>
                 <div class="ml-4">
-                    <p class="text-sm text-gray-500">Pending</p>
+                    <p class="text-sm text-gray-500">{{ __('dashboard.pending') }}</p>
                     <p class="text-2xl font-bold text-gray-800">{{ $pendingRepairs }}</p>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                     </svg>
                 </div>
                 <div class="ml-4">
-                    <p class="text-sm text-gray-500">Completed This Month</p>
+                    <p class="text-sm text-gray-500">{{ __('dashboard.completed_this_month') }}</p>
                     <p class="text-2xl font-bold text-gray-800">{{ $completedThisMonth }}</p>
                 </div>
             </div>
@@ -75,7 +75,7 @@
 
     <!-- Quick Actions -->
     <div class="bg-white rounded-xl shadow-sm p-6">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h2>
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">{{ __('dashboard.quick_actions') }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <a href="{{ route('employee.repairs') }}"
                class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition">
@@ -86,8 +86,8 @@
                     </svg>
                 </div>
                 <div class="ml-4">
-                    <p class="font-medium text-gray-800">View Repairs</p>
-                    <p class="text-sm text-gray-500">See all repair tickets</p>
+                    <p class="font-medium text-gray-800">{{ __('dashboard.view_repairs') }}</p>
+                    <p class="text-sm text-gray-500">{{ __('dashboard.see_all_repair_tickets') }}</p>
                 </div>
             </a>
 
@@ -99,8 +99,8 @@
                     </svg>
                 </div>
                 <div class="ml-4">
-                    <p class="font-medium text-gray-800">Create Repair</p>
-                    <p class="text-sm text-gray-500">Add a new repair ticket</p>
+                    <p class="font-medium text-gray-800">{{ __('dashboard.create_repair') }}</p>
+                    <p class="text-sm text-gray-500">{{ __('dashboard.add_new_repair_ticket') }}</p>
                 </div>
             </a>
         </div>
@@ -108,21 +108,21 @@
 
     <!-- Shop Info -->
     <div class="mt-6 bg-white rounded-xl shadow-sm p-6">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">Shop Information</h2>
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">{{ __('dashboard.shop_information') }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-                <p class="text-sm text-gray-500">Shop Name</p>
+                <p class="text-sm text-gray-500">{{ __('dashboard.shop_name') }}</p>
                 <p class="font-medium text-gray-800">{{ $shop->name }}</p>
             </div>
             @if($shop->phone)
             <div>
-                <p class="text-sm text-gray-500">Phone</p>
+                <p class="text-sm text-gray-500">{{ __('dashboard.phone') }}</p>
                 <p class="font-medium text-gray-800">{{ $shop->phone }}</p>
             </div>
             @endif
             @if($shop->address)
             <div class="md:col-span-2">
-                <p class="text-sm text-gray-500">Address</p>
+                <p class="text-sm text-gray-500">{{ __('dashboard.address') }}</p>
                 <p class="font-medium text-gray-800">{{ $shop->address }}</p>
             </div>
             @endif

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>Accept Invitation - {{ config('app.name', 'MobileShop') }}</title>
+        <title>{{ __('auth.accept_invitation') }} - {{ config('app.name', 'MobileShop') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -37,9 +37,9 @@
             </div>
 
             <div class="w-full sm:max-w-md px-6 py-8 bg-white shadow-xl overflow-hidden sm:rounded-xl">
-                <h2 class="text-2xl font-bold text-gray-800 text-center mb-2">Welcome, {{ $user->name }}!</h2>
+                <h2 class="text-2xl font-bold text-gray-800 text-center mb-2">{{ __('auth.welcome_user', ['name' => $user->name]) }}</h2>
                 <p class="text-gray-600 text-center mb-6">
-                    Set up your password to join <strong>{{ $shop?->name ?? 'the team' }}</strong>
+                    {{ __('auth.set_password_to_join', ['shop' => $shop?->name ?? 'the team']) }}
                 </p>
 
                 <!-- Shop Info -->
@@ -52,7 +52,7 @@
                             </svg>
                         </div>
                         <div class="ml-3">
-                            <p class="text-sm text-gray-600">You're joining</p>
+                            <p class="text-sm text-gray-600">{{ __('auth.youre_joining') }}</p>
                             <p class="font-semibold text-gray-800">{{ $shop->name }}</p>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
 
                     <!-- Email (readonly) -->
                     <div class="mb-4">
-                        <label for="email" class="block text-gray-700 font-semibold mb-1">Email</label>
+                        <label for="email" class="block text-gray-700 font-semibold mb-1">{{ __('auth.email') }}</label>
                         <input type="email" id="email" value="{{ $user->email }}"
                             class="block w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-500"
                             readonly disabled>
@@ -78,10 +78,10 @@
 
                     <!-- Password -->
                     <div class="mb-4">
-                        <label for="password" class="block text-gray-700 font-semibold mb-1">Password</label>
+                        <label for="password" class="block text-gray-700 font-semibold mb-1">{{ __('auth.password') }}</label>
                         <input type="password" name="password" id="password"
                             class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 @error('password') border-red-500 @enderror"
-                            placeholder="Create a password"
+                            placeholder="{{ __('auth.create_a_password') }}"
                             required autofocus>
                         @error('password')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -90,10 +90,10 @@
 
                     <!-- Confirm Password -->
                     <div class="mb-6">
-                        <label for="password_confirmation" class="block text-gray-700 font-semibold mb-1">Confirm Password</label>
+                        <label for="password_confirmation" class="block text-gray-700 font-semibold mb-1">{{ __('auth.confirm_password') }}</label>
                         <input type="password" name="password_confirmation" id="password_confirmation"
                             class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
-                            placeholder="Confirm your password"
+                            placeholder="{{ __('auth.confirm_your_password') }}"
                             required>
                     </div>
 
@@ -103,38 +103,38 @@
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        Activate My Account
+                        {{ __('auth.activate_account') }}
                     </button>
                 </form>
 
                 <!-- What's Next -->
                 <div class="mt-6 pt-6 border-t border-gray-200">
-                    <h3 class="text-sm font-semibold text-gray-700 mb-3">After activation, you can:</h3>
+                    <h3 class="text-sm font-semibold text-gray-700 mb-3">{{ __('auth.after_activation') }}</h3>
                     <ul class="text-sm text-gray-600 space-y-2">
                         <li class="flex items-center">
                             <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
-                            View and manage repair tickets
+                            {{ __('auth.view_manage_repairs') }}
                         </li>
                         <li class="flex items-center">
                             <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
-                            Create new repairs for customers
+                            {{ __('auth.create_repairs_customers') }}
                         </li>
                         <li class="flex items-center">
                             <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
-                            Update repair status and details
+                            {{ __('auth.update_repair_status') }}
                         </li>
                     </ul>
                 </div>
             </div>
 
             <p class="mt-6 text-blue-100 text-sm">
-                &copy; {{ date('Y') }} MobileShop. All rights reserved.
+                &copy; {{ date('Y') }} MobileShop. {{ __('emails.all_rights_reserved') }}
             </p>
         </div>
     </body>

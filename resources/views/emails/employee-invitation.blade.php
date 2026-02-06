@@ -4,7 +4,7 @@
 <head>
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
- <title>You're Invited to Join {{ $shop->name }}</title>
+ <title>{{ __('emails.invitation_title') }} - {{ $shop->name }}</title>
 </head>
 
 <body
@@ -43,10 +43,10 @@
            <span style="font-size: 40px;">&#128587;</span>
           </div>
           <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">
-           You're Invited!
+           {{ __('emails.invitation_title') }}
           </h1>
           <p style="margin: 12px 0 0 0; color: rgba(255,255,255,0.9); font-size: 16px;">
-           Join {{ $shop->name }} as an employee
+           {{ __('emails.join_shop_as_employee', ['shop' => $shop->name]) }}
           </p>
          </td>
         </tr>
@@ -56,11 +56,10 @@
          <td style="padding: 40px;">
           <!-- Greeting -->
           <p style="margin: 0 0 25px 0; font-size: 16px; color: #374151; line-height: 1.6;">
-           Hi <strong>{{ $user->name }}</strong>,
+           {{ __('emails.hi') }} <strong>{{ $user->name }}</strong>,
           </p>
           <p style="margin: 0 0 30px 0; font-size: 16px; color: #374151; line-height: 1.6;">
-           You've been invited to join <strong>{{ $shop->name }}</strong> as an employee on MobileShop. As an employee,
-           you'll be able to manage repair tickets and help customers track their device repairs.
+           {{ __('emails.invitation_description', ['shop' => $shop->name]) }}
           </p>
 
           <!-- Shop Details Card -->
@@ -70,7 +69,7 @@
             <td style="padding: 24px;">
              <h2
               style="margin: 0 0 20px 0; font-size: 14px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px;">
-              &#127978; Shop Information
+              &#127978; {{ __('emails.shop_information') }}
              </h2>
              <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
@@ -83,8 +82,7 @@
                   </td>
                   <td style="padding-left: 15px;">
                    <span
-                    style="display: block; font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Shop
-                    Name</span>
+                    style="display: block; font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">{{ __('emails.shop_name_label') }}</span>
                    <span
                     style="display: block; font-size: 16px; color: #1f2937; font-weight: 600;">{{ $shop->name }}</span>
                   </td>
@@ -104,7 +102,7 @@
                    </td>
                    <td style="padding-left: 15px;">
                     <span
-                     style="display: block; font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Location</span>
+                     style="display: block; font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">{{ __('emails.location') }}</span>
                     <span
                      style="display: block; font-size: 16px; color: #1f2937; font-weight: 500;">{{ $shop->address }}</span>
                    </td>
@@ -125,31 +123,31 @@
             <td style="padding: 24px;">
              <h2
               style="margin: 0 0 15px 0; font-size: 14px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px;">
-              &#9989; As an employee, you can
+              &#9989; {{ __('emails.as_employee_you_can') }}
              </h2>
              <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                <td style="padding: 8px 0; font-size: 14px; color: #374151;">
                 <span style="color: #10b981; margin-right: 8px;">&#10003;</span>
-                View all repairs for your shop
+                {{ __('emails.view_all_repairs_for_shop') }}
                </td>
               </tr>
               <tr>
                <td style="padding: 8px 0; font-size: 14px; color: #374151;">
                 <span style="color: #10b981; margin-right: 8px;">&#10003;</span>
-                Create new repair tickets
+                {{ __('emails.create_new_repair_tickets') }}
                </td>
               </tr>
               <tr>
                <td style="padding: 8px 0; font-size: 14px; color: #374151;">
                 <span style="color: #10b981; margin-right: 8px;">&#10003;</span>
-                Update repair status and details
+                {{ __('emails.update_repair_status_details') }}
                </td>
               </tr>
               <tr>
                <td style="padding: 8px 0; font-size: 14px; color: #374151;">
                 <span style="color: #10b981; margin-right: 8px;">&#10003;</span>
-                Help customers track their devices
+                {{ __('emails.help_customers_track_devices') }}
                </td>
               </tr>
              </table>
@@ -162,11 +160,11 @@
            <tr>
             <td align="center">
              <p style="margin: 0 0 20px 0; font-size: 14px; color: #6b7280;">
-              Click the button below to set up your password and activate your account:
+              {{ __('emails.click_to_activate') }}
              </p>
              <a href="{{ route('invitation.accept', ['token' => $token]) }}"
               style="display: inline-block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; text-decoration: none; padding: 16px 40px; border-radius: 10px; font-weight: 600; font-size: 16px; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);">
-              Accept Invitation &#8594;
+              {{ __('emails.accept_invitation') }} &#8594;
              </a>
             </td>
            </tr>
@@ -178,8 +176,7 @@
            <tr>
             <td style="padding: 16px;">
              <p style="margin: 0; font-size: 13px; color: #92400e;">
-              <strong>&#128274; Security Note:</strong> This invitation link is unique to you. Do not share it with
-              anyone. If you didn't expect this invitation, please ignore this email.
+              <strong>&#128274; {{ __('emails.security_note') }}:</strong> {{ __('emails.security_note_text') }}
              </p>
             </td>
            </tr>
@@ -194,13 +191,13 @@
      <tr>
       <td style="padding: 30px 20px; text-align: center;">
        <p style="margin: 0 0 8px 0; font-size: 13px; color: #6b7280;">
-        Need help? Contact the shop owner or our support team.
+        {{ __('emails.need_help_contact') }}
        </p>
        <p style="margin: 0 0 15px 0; font-size: 12px; color: #9ca3af;">
-        You're receiving this email because you were invited to join {{ $shop->name }} on MobileShop.
+        {{ __('emails.receiving_invitation_email', ['shop' => $shop->name]) }}
        </p>
        <p style="margin: 0; font-size: 12px; color: #9ca3af;">
-        &copy; {{ date('Y') }} MobileShop. All rights reserved.
+        &copy; {{ date('Y') }} MobileShop. {{ __('emails.all_rights_reserved') }}
        </p>
       </td>
      </tr>

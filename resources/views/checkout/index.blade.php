@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Checkout - {{ $plan->name }} Plan</title>
+    <title>{{ __('checkout.checkout_title', ['plan' => ucfirst($plan->name)]) }}</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -37,7 +37,7 @@
                         <span class="ml-3 text-xl font-bold">MobileShop</span>
                     </a>
                     <a href="/" class="text-white hover:text-blue-200 transition">
-                        &larr; Back to Home
+                        &larr; {{ __('checkout.back_to_home') }}
                     </a>
                 </div>
             </div>
@@ -46,24 +46,24 @@
         <!-- Main Content -->
         <main class="container mx-auto px-6 py-12">
             <div class="max-w-4xl mx-auto">
-                <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Complete Your Purchase</h1>
+                <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">{{ __('checkout.complete_purchase') }}</h1>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- Order Summary -->
                     <div class="bg-white rounded-xl shadow-lg p-6">
-                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Order Summary</h2>
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ __('checkout.order_summary') }}</h2>
 
                         <div class="border-b pb-4 mb-4">
                             <div class="flex justify-between items-center mb-2">
-                                <span class="text-gray-600">Plan</span>
+                                <span class="text-gray-600">{{ __('checkout.plan') }}</span>
                                 <span class="font-semibold text-blue-600">{{ ucfirst($plan->name) }}</span>
                             </div>
                             <ul class="text-sm text-gray-500 space-y-1 mt-3">
-                                <li>{{ $plan->max_active_repairs }} active repairs</li>
-                                <li>{{ $plan->max_employees == 0 ? 'No' : $plan->max_employees }} employees</li>
-                                <li>{{ $plan->drag_and_drop ? 'Drag & Drop board' : 'Basic board' }}</li>
+                                <li>{{ __('checkout.active_repairs', ['count' => $plan->max_active_repairs]) }}</li>
+                                <li>{{ $plan->max_employees == 0 ? __('checkout.no_employees') : __('checkout.employees', ['count' => $plan->max_employees]) }}</li>
+                                <li>{{ $plan->drag_and_drop ? __('checkout.drag_drop_board') : __('checkout.basic_board') }}</li>
                                 @if ($plan->exports)
-                                    <li>Export reports</li>
+                                    <li>{{ __('checkout.export_reports') }}</li>
                                 @endif
                             </ul>
                         </div>
@@ -71,7 +71,7 @@
                         <!-- Duration Selector -->
                         <div class="mb-4">
                             <label for="duration" class="block text-sm font-medium text-gray-700 mb-2">
-                                Subscription Duration
+                                {{ __('checkout.subscription_duration') }}
                             </label>
                             <select id="duration" name="duration"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
@@ -84,21 +84,21 @@
                         <!-- Price Breakdown -->
                         <div class="bg-gray-50 rounded-lg p-4 mb-4">
                             <div class="flex justify-between items-center mb-2">
-                                <span class="text-gray-600">Monthly Price</span>
+                                <span class="text-gray-600">{{ __('checkout.monthly_price') }}</span>
                                 <span id="monthly-price">&euro;{{ number_format($plan->price_monthly, 2) }}</span>
                             </div>
                             <div class="flex justify-between items-center mb-2" id="original-price-row"
                                 style="display: none;">
-                                <span class="text-gray-600">Original Price</span>
+                                <span class="text-gray-600">{{ __('checkout.original_price') }}</span>
                                 <span id="original-price" class="line-through text-gray-400"></span>
                             </div>
                             <div class="flex justify-between items-center mb-2" id="savings-row" style="display: none;">
-                                <span class="text-green-600 font-medium">You Save</span>
+                                <span class="text-green-600 font-medium">{{ __('checkout.you_save') }}</span>
                                 <span id="savings" class="text-green-600 font-medium"></span>
                             </div>
                             <div class="border-t pt-2 mt-2">
                                 <div class="flex justify-between items-center">
-                                    <span class="text-lg font-semibold text-gray-800">Total</span>
+                                    <span class="text-lg font-semibold text-gray-800">{{ __('checkout.total') }}</span>
                                     <span id="total-price" class="text-2xl font-bold text-blue-600">
                                         &euro;{{ number_format($priceBreakdown['total_price'], 2) }}
                                     </span>
@@ -109,7 +109,7 @@
 
                     <!-- Checkout Form -->
                     <div class="bg-white rounded-xl shadow-lg p-6">
-                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Your Details</h2>
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ __('checkout.your_details') }}</h2>
 
                         <form id="checkout-form" class="space-y-4">
                             @csrf
@@ -117,16 +117,16 @@
                             <!-- Shop Details -->
                             <div>
                                 <label for="shop_name" class="block text-sm font-medium text-gray-700 mb-1">
-                                    Shop Name <span class="text-red-500">*</span>
+                                    {{ __('checkout.shop_name') }} <span class="text-red-500">*</span>
                                 </label>
                                 <input type="text" id="shop_name" name="shop_name" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    placeholder="Your shop name">
+                                    placeholder="{{ __('checkout.shop_name_placeholder') }}">
                             </div>
 
                             <div>
                                 <label for="shop_phone" class="block text-sm font-medium text-gray-700 mb-1">
-                                    Phone Number
+                                    {{ __('checkout.phone_number') }}
                                 </label>
                                 <input type="tel" id="shop_phone" name="shop_phone"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -135,20 +135,42 @@
 
                             <div>
                                 <label for="shop_address" class="block text-sm font-medium text-gray-700 mb-1">
-                                    Address
+                                    {{ __('checkout.address') }}
                                 </label>
                                 <input type="text" id="shop_address" name="shop_address"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     placeholder="123 Business St.">
                             </div>
 
+                            <div>
+                                <label for="language_code" class="block text-sm font-medium text-gray-700 mb-1">
+                                    {{ __('checkout.language') }} <span class="text-red-500">*</span>
+                                </label>
+                                <select id="language_code" name="language_code" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="en" selected>English</option>
+                                    <option value="sq">Shqip (Albanian)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="currency_code" class="block text-sm font-medium text-gray-700 mb-1">
+                                    {{ __('checkout.currency') }} <span class="text-red-500">*</span>
+                                </label>
+                                <select id="currency_code" name="currency_code" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="EUR" selected>EUR (&euro;)</option>
+                                    <option value="MKD">MKD (ден)</option>
+                                </select>
+                            </div>
+
                             @guest
                                 <hr class="my-4">
-                                <h3 class="text-lg font-medium text-gray-800">Account Details</h3>
+                                <h3 class="text-lg font-medium text-gray-800">{{ __('checkout.account_details') }}</h3>
 
                                 <div>
                                     <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
-                                        Your Name <span class="text-red-500">*</span>
+                                        {{ __('checkout.your_name') }} <span class="text-red-500">*</span>
                                     </label>
                                     <input type="text" id="name" name="name" required
                                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -157,7 +179,7 @@
 
                                 <div>
                                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
-                                        Email <span class="text-red-500">*</span>
+                                        {{ __('checkout.email') }} <span class="text-red-500">*</span>
                                     </label>
                                     <input type="email" id="email" name="email" required
                                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -166,11 +188,11 @@
 
                                 <div>
                                     <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
-                                        Password <span class="text-red-500">*</span>
+                                        {{ __('checkout.password') }} <span class="text-red-500">*</span>
                                     </label>
                                     <input type="password" id="password" name="password" required minlength="8"
                                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        placeholder="Min. 8 characters">
+                                        placeholder="{{ __('checkout.min_characters') }}">
                                 </div>
                             @endguest
                         </form>
@@ -186,7 +208,7 @@
                         <div id="paypal-button-container"></div>
 
                         <p class="text-xs text-gray-500 text-center mt-4">
-                            By completing this purchase, you agree to our Terms of Service and Privacy Policy.
+                            {{ __('checkout.terms_agreement') }}
                         </p>
                     </div>
                 </div>
@@ -302,6 +324,8 @@
                     shop_name: document.getElementById('shop_name').value,
                     shop_phone: document.getElementById('shop_phone').value,
                     shop_address: document.getElementById('shop_address').value,
+                    language_code: document.getElementById('language_code').value,
+                    currency_code: document.getElementById('currency_code').value,
                     @guest
                     name: document.getElementById('name').value,
                     email: document.getElementById('email').value,

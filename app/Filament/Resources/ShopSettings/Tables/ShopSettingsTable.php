@@ -21,6 +21,8 @@ class ShopSettingsTable
                 TextColumn::make('shop.name')
                     ->label('Shop Name')
                     ->searchable(),
+                TextColumn::make('language_code')
+                    ->searchable(),
                 TextColumn::make('logo_path')
                     ->searchable(),
                 TextColumn::make('primary_color')

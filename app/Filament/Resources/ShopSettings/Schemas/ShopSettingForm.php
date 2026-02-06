@@ -30,20 +30,20 @@ class ShopSettingForm
                     ->default('#22c55e'),
                 Select::make('currency_code')
                     ->options([
-                        'USD' => 'USD',
                         'EUR' => 'EUR',
-                        'MKD' => 'MKD',                      
+                        'MKD' => 'MKD',
+                        // 'USD' => 'USD', // Uncomment when needed
                     ])
                     ->live()
                 ->afterStateUpdated(function (Set $set, ?string $state) {
                     if (!$state) {
-                        $set('currency_symbol', '&euro;');
+                        $set('currency_symbol', '€');
                         return;
                     }
                     $currencySymbols = [
-                        'USD' => '$',
                         'EUR' => '€',
                         'MKD' => 'ден',
+                        // 'USD' => '$', // Uncomment when needed
                     ];
                     $set('currency_symbol', $currencySymbols[$state] ?? '');
                 })
@@ -52,8 +52,8 @@ class ShopSettingForm
                 Select::make('currency_symbol')
                     ->options([
                         '€' => '€',
-                        '$' => '$',
                         'ден' => 'ден',
+                        // '$' => '$', // Uncomment when needed
                     ])
                     ->required(),
                     

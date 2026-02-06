@@ -24,6 +24,12 @@ class RenewalApplicationController extends Controller
                 ->with('error', 'No subscription found.');
         }
 
+        // Only allow renewal application when plan is in grace or expired status
+        if (!in_array($shop->shopPlan->status, ['grace', 'expired'])) {
+            return redirect()->route('owner.dashboard')
+                ->with('info', 'You can apply for renewal when it enters the grace period or has expired.');
+        }
+
         // Check if there's already a pending renewal application
         $pendingRenewal = PlanApplication::where('user_id', Auth::id())
             ->where('shop_id', $shop->id)
@@ -70,6 +76,12 @@ class RenewalApplicationController extends Controller
         if (!$shop || !$shop->shopPlan) {
             return redirect()->route('owner.dashboard')
                 ->with('error', 'No subscription found.');
+        }
+
+        // Verify plan is in grace or expired status
+        if (!in_array($shop->shopPlan->status, ['grace', 'expired'])) {
+            return redirect()->route('owner.dashboard')
+                ->with('error', 'Renewal only available during grace period or when expired.');
         }
 
         // Check for existing pending renewal

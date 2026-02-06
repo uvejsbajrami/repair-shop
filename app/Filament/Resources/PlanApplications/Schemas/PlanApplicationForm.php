@@ -35,6 +35,16 @@ class PlanApplicationForm
       TextInput::make('duration_months')
        ->required()
        ->numeric(),
+      Select::make('language_code')
+       ->label('Language')
+       ->options(['en' => 'English', 'sq' => 'Shqip (Albanian)'])
+       ->default('en')
+       ->disabled(),
+      Select::make('currency_code')
+       ->label('Currency')
+       ->options(['EUR' => 'EUR (€)', 'MKD' => 'MKD (ден)'])
+       ->default('EUR')
+       ->disabled(),
       Select::make('status')
        ->options(['pending' => 'Pending', 'approved' => 'Approved', 'rejected' => 'Rejected'])
        ->default('pending')

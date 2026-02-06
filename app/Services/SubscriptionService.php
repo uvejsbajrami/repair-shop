@@ -32,7 +32,7 @@ class SubscriptionService
     public function activateSubscription(Shop $shop, Plan $plan, int $durationMonths): ShopPlan
     {
         $now = Carbon::now();
-        $endsAt = $now->copy()->addMonths($durationMonths);
+        $endsAt = $now->copy()->addDays($durationMonths * 30);
         $graceEndsAt = $endsAt->copy()->addDays($plan->getGracePeriodDays());
 
         // Delete any existing shop plan
@@ -58,37 +58,38 @@ class SubscriptionService
 
     /**
      * Renew an existing subscription
+     *
+     * Renewal is only allowed during grace period.
+     * The new subscription extends from the old end date (not from today),
+     * so the user doesn't lose any days.
      */
     public function renewSubscription(Shop $shop, int $durationMonths): ShopPlan
     {
         $shopPlan = $shop->shopPlan;
         $plan = $shopPlan->plan;
 
-        // Calculate new dates
-        // If plan is still active, extend from ends_at; otherwise start from now
         $now = Carbon::now();
-        $currentEndsAt = $shopPlan->ends_at ? Carbon::parse($shopPlan->ends_at) : null;
+        $currentEndsAt = $shopPlan->ends_at ? Carbon::parse($shopPlan->ends_at) : $now;
 
-        if ($currentEndsAt && $currentEndsAt->gt($now)) {
-            // Plan still active, extend from current end date
-            $startsAt = $currentEndsAt;
-        } else {
-            // Plan expired, start from now
-            $startsAt = $now;
-        }
-
-        $endsAt = $startsAt->copy()->addMonths($durationMonths);
+        // Always extend from the old end date (grace period renewal)
+        // This ensures the user doesn't lose any days from the grace period
+        $endsAt = $currentEndsAt->copy()->addDays($durationMonths * 30);
         $graceEndsAt = $endsAt->copy()->addDays($plan->getGracePeriodDays());
 
         // Update the shop plan
         $shopPlan->update([
             'billing_cycle' => $durationMonths >= 12 ? 'yearly' : 'monthly',
             'duration_months' => $durationMonths,
-            'starts_at' => $now,
+            'starts_at' => $currentEndsAt, // New period starts from old end date
             'ends_at' => $endsAt,
             'grace_ends_at' => $graceEndsAt,
-            'status' => 'active',
+            'grace_email_sent_at' => null, // Reset grace email
+            'expired_email_sent_at' => null, // Reset expired email
+            'status' => 'active', // Immediately active after renewal
         ]);
+
+        // Ensure shop is active
+        $shop->update(['is_active' => true]);
 
         return $shopPlan->fresh();
     }

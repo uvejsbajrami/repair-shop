@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Owner Dashboard') - {{ config('app.name') }}</title>
+    <title>@yield('title', __('common.owner_dashboard')) - {{ config('app.name') }}</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -62,7 +62,7 @@
             <!-- Sidebar Header -->
             <div class="p-6 bg-primary-darker">
                 <a href="/">
-                    <h1 class="text-2xl font-bold">Owner Dashboard</h1>
+                    <h1 class="text-2xl font-bold">{{ __('common.owner_dashboard') }}</h1>
                 </a>
             </div>
 
@@ -76,7 +76,7 @@
                                 d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
                             </path>
                         </svg>
-                        <span>Admin Panel</span>
+                        <span>{{ __('common.admin_panel') }}</span>
                     </a>
                 @endif
                 <a href="{{ route('owner.dashboard') }}"
@@ -86,7 +86,7 @@
                             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                         </path>
                     </svg>
-                    <span>Overview</span>
+                    <span>{{ __('common.overview') }}</span>
                 </a>
 
 
@@ -99,7 +99,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
-                    <span>Repairs / Jobs</span>
+                    <span>{{ __('common.repairs_jobs') }}</span>
                 </a>
 
                 @php
@@ -114,7 +114,7 @@
                                 d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
                             </path>
                         </svg>
-                        <span>Employees</span>
+                        <span>{{ __('common.employees') }}</span>
                     </a>
                 @endif
 
@@ -126,7 +126,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
                         </svg>
-                        <span>Repair Logs</span>
+                        <span>{{ __('common.repair_logs') }}</span>
                     </a>
                 @endif
 
@@ -138,7 +138,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                         </svg>
-                        <span>Export Data</span>
+                        <span>{{ __('common.export_data') }}</span>
                     </a>
 
                     <a href="{{ route('owner.settings') }}"
@@ -150,7 +150,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
-                        <span>Shop Settings</span>
+                        <span>{{ __('common.shop_settings') }}</span>
                     </a>
                 @endif
             </nav>
@@ -158,8 +158,8 @@
             <!-- Upgrade Plan Button in Sidebar -->
             @if (App\Models\PlanApplication::where('user_id', auth()->id())->where('status', 'pending')->exists())
                 <div class="px-4 py-4 border-t border-white/20 mt-auto">
-                    <p class="font-bold text-white">Application Pending</p>
-                    <p class="text-sm mt-1 text-white/80">Please wait until your application is approved.</p>
+                    <p class="font-bold text-white">{{ __('common.application_pending') }}</p>
+                    <p class="text-sm mt-1 text-white/80">{{ __('common.please_wait_until_approved') }}</p>
                 </div>
             @else
                 <div class="px-4 py-4 border-t border-white/20 mt-auto">
@@ -169,7 +169,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
-                        Upgrade Plan
+                        {{ __('common.upgrade_plan') }}
                     </a>
                 </div>
             @endif
@@ -189,33 +189,12 @@
                     </button>
 
                     <!-- Page Title (visible on mobile) -->
-                    <h2 class="md:hidden text-lg font-semibold text-gray-800">Owner Dashboard</h2>
+                    <h2 class="md:hidden text-lg font-semibold text-gray-800">{{ __('common.owner_dashboard') }}</h2>
 
                     <!-- Right Side: Search, Notifications, Profile -->
                     <div class="flex items-center space-x-4 ml-auto">
-                        <!-- Search Bar (hidden on mobile) -->
-                        <div class="hidden md:block">
-                            <div class="relative">
-                                <input type="text" placeholder="Search..."
-                                    class="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                </svg>
-                            </div>
-                        </div>
-
                         <!-- Notifications -->
-                        <button class="relative text-gray-600 hover:text-gray-800">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
-                                </path>
-                            </svg>
-                            <span
-                                class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
-                        </button>
+                        <livewire:notification-bell />
 
                         <!-- Profile Dropdown -->
                         <div class="relative" x-data="{ open: false }">
@@ -224,7 +203,7 @@
                                     alt="Profile" class="w-10 h-10 rounded-full border-2 border-gray-200">
                                 <div class="hidden md:block text-left">
                                     <p class="text-sm font-medium text-gray-700">{{ Auth::user()->name }}</p>
-                                    <p class="text-xs text-gray-500">Owner</p>
+                                    <p class="text-xs text-gray-500">{{ __('common.owner') }}</p>
                                 </div>
                                 <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24">
@@ -253,7 +232,7 @@
                                                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
                                             </path>
                                         </svg>
-                                        Profile
+                                        {{ __('common.profile') }}
                                     </div>
                                     @if (current_plan())
                                         <span
@@ -266,7 +245,7 @@
                                     @else
                                         <span
                                             class="px-2 py-0.5 text-xs font-medium rounded-full bg-gray-100 text-gray-500">
-                                            No Plan
+                                            {{ __('common.no_plan') }}
                                         </span>
                                     @endif
                                 </a>
@@ -291,7 +270,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                             </svg>
-                                            Renewal Pending
+                                            {{ __('common.renewal_pending') }}
                                         </span>
                                     @else
                                         <a href="{{ route('renew') }}"
@@ -302,7 +281,7 @@
                                                     d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
                                                 </path>
                                             </svg>
-                                            Renew Plan
+                                            {{ __('common.renew_plan') }}
                                         </a>
                                     @endif
                                 @endif
@@ -319,7 +298,7 @@
                                                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
                                             </path>
                                         </svg>
-                                        Log Out
+                                        {{ __('common.log_out') }}
                                     </button>
                                 </form>
                             </div>
@@ -378,11 +357,10 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                         <div>
-                            <p class="font-bold">Plan Expired</p>
-                            <p class="text-sm mt-1">Your subscription has expired. Please renew your plan to continue
-                                managing repairs and accessing all features.</p>
+                            <p class="font-bold">{{ __('common.plan_expired') }}</p>
+                            <p class="text-sm mt-1">{{ __('common.plan_expired_message') }}</p>
                             <a href="{{ route('renew') }}"
-                                class="inline-block mt-2 text-sm font-semibold underline hover:no-underline">Renew Now
+                                class="inline-block mt-2 text-sm font-semibold underline hover:no-underline">{{ __('common.renew_now') }}
                                 →</a>
                         </div>
                     </div>
@@ -395,12 +373,10 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                         <div>
-                            <p class="font-bold">Grace Period</p>
-                            <p class="text-sm mt-1">Your plan has ended. You have until
-                                {{ \Carbon\Carbon::parse($graceEndsAt)->format('M d, Y') }} to renew before losing
-                                access.</p>
+                            <p class="font-bold">{{ __('common.grace_period') }}</p>
+                            <p class="text-sm mt-1">{{ __('common.grace_period_message', ['date' => \Carbon\Carbon::parse($graceEndsAt)->format('M d, Y')]) }}</p>
                             <a href="{{ route('renew') }}"
-                                class="inline-block mt-2 text-sm font-semibold underline hover:no-underline">Renew Plan
+                                class="inline-block mt-2 text-sm font-semibold underline hover:no-underline">{{ __('common.renew_plan') }}
                                 →</a>
                         </div>
                     </div>
@@ -416,14 +392,14 @@
                             <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
                         </svg>
                         <div class="flex-1">
-                            <p class="font-bold">Payment Proof Required</p>
-                            <p class="text-sm mt-1">Please upload your payment proof to complete your application.</p>
+                            <p class="font-bold">{{ __('common.payment_proof_required') }}</p>
+                            <p class="text-sm mt-1">{{ __('common.upload_payment_proof_message') }}</p>
                             <a href="{{ route('plan.payment-proof.upload', ['application' => $pendingAppNeedingProof->id]) }}"
                                 class="inline-flex items-center mt-3 px-5 py-2.5 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-700 transition text-sm shadow-sm">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
                                 </svg>
-                                Upload Payment Proof
+                                {{ __('common.upload_payment_proof') }}
                             </a>
                         </div>
                     </div>
@@ -444,9 +420,8 @@
                             @endphp
 
                             @if ($pendingApp)
-                                <p class="font-bold">Payment Proof Required</p>
-                                <p class="text-sm mt-1">Please upload your payment proof to complete your application.
-                                </p>
+                                <p class="font-bold">{{ __('common.payment_proof_required') }}</p>
+                                <p class="text-sm mt-1">{{ __('common.upload_payment_proof_message') }}</p>
                                 <a href="{{ route('plan.payment-proof.upload', ['application' => $pendingApp->id]) }}"
                                     class="inline-flex items-center mt-3 px-5 py-2.5 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition text-sm shadow-sm">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
@@ -454,19 +429,17 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
                                     </svg>
-                                    Upload Payment Proof
+                                    {{ __('common.upload_payment_proof') }}
                                 </a>
                             @elseif (App\Models\PlanApplication::where('user_id', auth()->id())->where('status', 'pending')->exists())
-                                <p class="font-bold">Application Pending</p>
-                                <p class="text-sm mt-1">Your application is being reviewed. Please wait until it is
-                                    approved.</p>
+                                <p class="font-bold">{{ __('common.application_pending') }}</p>
+                                <p class="text-sm mt-1">{{ __('common.please_wait_until_approved') }}</p>
                             @else
-                                <p class="font-bold">No Active Plan</p>
-                                <p class="text-sm mt-1">You don't have an active plan yet. Select a plan to get started
-                                    and unlock all features for your repair shop.</p>
+                                <p class="font-bold">{{ __('common.no_active_plan') }}</p>
+                                <p class="text-sm mt-1">{{ __('common.no_active_plan_message') }}</p>
                                 <a href="/#plansSection"
                                     class="inline-block mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition text-sm">
-                                    Choose a Plan →
+                                    {{ __('common.choose_a_plan') }} →
                                 </a>
                             @endif
                         </div>
@@ -525,7 +498,7 @@
         class="fixed left-0 top-0 bottom-0 w-64 bg-primary text-white z-50 transform -translate-x-full transition-transform duration-300 md:hidden overflow-y-auto">
         <div class="p-6 bg-primary-darker flex justify-between items-center">
             <a href="/">
-                <h1 class="text-2xl font-bold">Owner Dashboard</h1>
+                <h1 class="text-2xl font-bold">{{ __('common.owner_dashboard') }}</h1>
             </a>
             <button id="closeMobileMenu" class="text-white hover:text-gray-200">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -544,7 +517,7 @@
                             d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
                         </path>
                     </svg>
-                    <span>Admin Panel</span>
+                    <span>{{ __('common.admin_panel') }}</span>
                 </a>
             @endif
             <a href="{{ route('owner.dashboard') }}"
@@ -554,7 +527,7 @@
                         d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                     </path>
                 </svg>
-                <span>Overview</span>
+                <span>{{ __('common.overview') }}</span>
             </a>
 
             <a href="{{ route('owner.repairs') }}"
@@ -566,7 +539,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                 </svg>
-                <span>Repairs / Jobs</span>
+                <span>{{ __('common.repairs_jobs') }}</span>
             </a>
 
             @if ($maxEmployeesForNav > 0 || $maxEmployeesForNav == -1)
@@ -577,7 +550,7 @@
                             d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
                         </path>
                     </svg>
-                    <span>Employees</span>
+                    <span>{{ __('common.employees') }}</span>
                 </a>
             @endif
 
@@ -589,7 +562,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
                     </svg>
-                    <span>Repair Logs</span>
+                    <span>{{ __('common.repair_logs') }}</span>
                 </a>
             @endif
 
@@ -601,7 +574,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                     </svg>
-                    <span>Export Data</span>
+                    <span>{{ __('common.export_data') }}</span>
                 </a>
 
                 <a href="{{ route('owner.settings') }}"
@@ -613,7 +586,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
-                    <span>Shop Settings</span>
+                    <span>{{ __('common.shop_settings') }}</span>
                 </a>
             @endif
         </nav>
